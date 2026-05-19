@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FF3B30">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="한국어">
+<link rel="manifest" href="manifest.json">
+<title>한국어 — Солонгос хэл</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --red: #FF3B30;
+    --orange: #FF9500;
+    --yellow: #FFCC00;
+    --green: #34C759;
+    --blue: #007AFF;
+    --purple: #AF52DE;
+    --pink: #FF2D55;
+    --bg: #F2F2F7;
+    --card: #FFFFFF;
+    --text: #1C1C1E;
+    --text2: #6C6C70;
+    --border: #E5E5EA;
+    --radius: 20px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* ── HOME SCREEN ── */
+  #home {
+    background: linear-gradient(160deg, #1C1C2E 0%, #2D1B69 50%, #1a1a2e 100%);
+    padding: 60px 24px 40px;
+  }
+
+  .home-header { text-align: center; margin-bottom: 40px; }
+
+  .home-flag {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 16px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .home-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .home-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+  }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    border-radius: 100px;
+    height: 8px;
+    margin: 24px 0 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    border-radius: 100px;
+    transition: width 0.6s ease;
+  }
+
+  .progress-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+
+  /* Pack Cards */
+  .packs { display: flex; flex-direction: column; gap: 16px; }
+
+  .pack-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .pack-card:active { transform: scale(0.97); }
+  .pack-card.locked { opacity: 0.4; cursor: not-allowed; }
+
+  .pack-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .pack-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .pack-info { flex: 1; }
+
+  .pack-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .pack-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+
+  .pack-lessons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .lesson-dot {
+    flex: 1;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lesson-dot.done {
+    background: rgba(52,199,89,0.2);
+    border-color: rgba(52,199,89,0.4);
+    color: var(--green);
+  }
+
+  .lesson-dot.current {
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ── LESSON SCREEN ── */
+  #lesson {
+    background: var(--bg);
+    padding: 0;
+  }
+
+  .lesson-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 56px 20px 16px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-btn {
+    width: 36px; height: 36px;
+    border: none; background: var(--bg);
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .lesson-info { flex: 1; }
+
+  .lesson-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .lesson-progress-text {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 2px;
+  }
+
+  .xp-badge {
+    background: var(--yellow);
+    color: #000;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .lesson-progress-bar {
+    height: 4px;
+    background: var(--border);
+  }
+
+  .lesson-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    transition: width 0.4s ease;
+  }
+
+  /* ── MATCHING GAME ── */
+  #matching-game {
+    flex: 1;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .game-instruction {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text2);
+    padding: 12px;
+  }
+
+  .matching-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .match-col { display: flex; flex-direction: column; gap: 10px; }
+
+  .match-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.3;
+    box-shadow: var(--shadow);
+    user-select: none;
+  }
+
+  .match-card:active { transform: scale(0.96); }
+
+  .match-card.selected {
+    border-color: var(--blue);
+    background: rgba(0,122,255,0.08);
+    color: var(--blue);
+  }
+
+  .match-card.correct {
+    border-color: var(--green);
+    background: rgba(52,199,89,0.1);
+    color: var(--green);
+    pointer-events: none;
+  }
+
+  .match-card.wrong {
+    border-color: var(--red);
+    background: rgba(255,59,48,0.1);
+    color: var(--red);
+    animation: shake 0.3s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  /* ── COMPLETE SCREEN ── */
+  #complete {
+    background: linear-gradient(160deg, #1C1C2E, #0D3349);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+  }
+
+  .complete-emoji {
+    font-size: 80px;
+    margin-bottom: 24px;
+    animation: pop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes pop {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .complete-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .complete-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 32px;
+  }
+
+  .complete-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 20px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--yellow);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 17px;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+
+  .btn-blue {
+    background: var(--blue);
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Confetti */
+  .confetti-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    animation: confetti-fall 2.5s ease-in forwards;
+  }
+
+  @keyframes confetti-fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HOME SCREEN -->
+<div id="home" class="screen active">
+  <div class="home-header">
+    <span class="home-flag">🇰🇷</span>
+    <h1 class="home-title">한국어 Сургалт</h1>
+    <p class="home-subtitle">Солонгос хэл — Монгол хүүхдүүдэд</p>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="total-progress" style="width:0%"></div>
+    </div>
+    <p class="progress-text" id="progress-text">0 / 6 хичээл дууссан</p>
+  </div>
+  <div class="packs" id="packs-container"></div>
+</div>
+
+<!-- LESSON SCREEN -->
+<div id="lesson" class="screen">
+  <div class="lesson-topbar">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="lesson-info">
+      <div class="lesson-name" id="lesson-title">Хичээл</div>
+      <div class="lesson-progress-text" id="lesson-progress-text"></div>
+    </div>
+    <div class="xp-badge" id="xp-badge">⭐ 10 XP</div>
+  </div>
+  <div class="lesson-progress-bar">
+    <div class="lesson-progress-fill" id="lesson-progress-fill" style="width:0%"></div>
+  </div>
+  <div id="matching-game">
+    <div class="game-instruction">🔗 Тохирох үгийг холбоорой</div>
+    <div class="matching-columns">
+      <div class="match-col" id="col-korean"></div>
+      <div class="match-col" id="col-mongolian"></div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE SCREEN -->
+<div id="complete" class="screen">
+  <div class="confetti-wrap" id="confetti"></div>
+  <div class="complete-emoji">🎉</div>
+  <h2 class="complete-title">Маш сайн!</h2>
+  <p class="complete-sub" id="complete-sub">Хичээлийг амжилттай дууслаа!</p>
+  <div class="complete-stats">
+    <div class="stat-box">
+      <div class="stat-num" id="stat-xp">+10</div>
+      <div class="stat-label">XP оноо</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="stat-matches">0/0</div>
+      <div class="stat-label">Зөв холболт</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="stat-time">0с</div>
+      <div class="stat-label">Хугацаа</div>
+    </div>
+  </div>
+  <button class="btn-primary btn-blue" onclick="nextLesson()">Дараагийн хичээл →</button>
+  <button class="btn-primary btn-ghost" onclick="goHome()">Нүүр хуудас</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════
+// DATA
+// ══════════════════════════════════
+const LESSONS = [
+  {
+    id: 1, packId: 1,
+    title: "Мэргэжил",
+    subtitle: "직업",
+    xp: 10,
+    words: [
+      { k: "공무원", m: "Төрийн албан хаагч" },
+      { k: "소방관", m: "Гал сөнөөгч" },
+      { k: "약사", m: "Эмийн санч" },
+      { k: "의사", m: "Эмч" },
+      { k: "선생님", m: "Багш" },
+      { k: "학생", m: "Сурагч" },
+      { k: "회사원", m: "Ажилтан" },
+      { k: "주부", m: "Гэрийн эзэгтэй" },
+      { k: "운전기사", m: "Жолооч" },
+      { k: "경찰", m: "Цагдаа" },
+    ]
+  },
+  {
+    id: 2, packId: 1,
+    title: "Улс орон 1",
+    subtitle: "나라",
+    xp: 10,
+    words: [
+      { k: "국적", m: "Иргэншил" },
+      { k: "나라", m: "Улс орон" },
+      { k: "몽골", m: "Монгол" },
+      { k: "한국", m: "Солонгос" },
+      { k: "미국", m: "Америк" },
+      { k: "영국", m: "Англи" },
+      { k: "일본", m: "Япон" },
+      { k: "중국", m: "Хятад" },
+      { k: "독일", m: "Герман" },
+      { k: "러시아", m: "Орос" },
+    ]
+  },
+  {
+    id: 3, packId: 1,
+    title: "Мэндчилгээ",
+    subtitle: "인사말",
+    xp: 10,
+    words: [
+      { k: "안녕하세요", m: "Сайн байна уу?" },
+      { k: "감사합니다", m: "Баярлалаа" },
+      { k: "네", m: "Тийм" },
+      { k: "아니요", m: "Үгүй" },
+      { k: "이름", m: "Нэр" },
+      { k: "저", m: "Би" },
+      { k: "제", m: "Миний" },
+      { k: "만나서 반갑습니다", m: "Уулзсандаа баяртай" },
+      { k: "처음 뵙겠습니다", m: "Танилцсандаа таатай" },
+    ]
+  },
+  {
+    id: 4, packId: 2,
+    title: "Байршил",
+    subtitle: "장소",
+    xp: 15,
+    words: [
+      { k: "대학교", m: "Их сургууль" },
+      { k: "학교", m: "Сургууль" },
+      { k: "은행", m: "Банк" },
+      { k: "병원", m: "Эмнэлэг" },
+      { k: "약국", m: "Эмийн сан" },
+      { k: "우체국", m: "Шуудан" },
+      { k: "도서관", m: "Номын сан" },
+      { k: "식당", m: "Хоолны газар" },
+      { k: "카페", m: "Кафе" },
+      { k: "시장", m: "Зах" },
+    ]
+  },
+  {
+    id: 5, packId: 2,
+    title: "Үдэлт",
+    subtitle: "작별 인사",
+    xp: 15,
+    words: [
+      { k: "안녕히 가세요", m: "Сайн яваарай" },
+      { k: "안녕히 계세요", m: "Сайн сууж байгаарай" },
+      { k: "잘 가", m: "Баяртай" },
+      { k: "내일 봐요", m: "Маргааш уулзъя" },
+      { k: "수고하셨습니다", m: "Баярлалаа" },
+      { k: "죄송합니다", m: "Уучлаарай" },
+    ]
+  },
+  {
+    id: 6, packId: 2,
+    title: "Улс орон 2",
+    subtitle: "나라 2",
+    xp: 15,
+    words: [
+      { k: "태국", m: "Тайланд" },
+      { k: "베트남", m: "Вьетнам" },
+      { k: "프랑스", m: "Франц" },
+      { k: "호주", m: "Австрали" },
+      { k: "캐나다", m: "Канад" },
+      { k: "인도", m: "Энэтхэг" },
+      { k: "필리핀", m: "Филиппин" },
+      { k: "말레이시아", m: "Малайз" },
+    ]
+  },
+];
+
+const PACKS = [
+  { id: 1, title: "1-р багц", desc: "Мэргэжил · Улс · Мэндчилгээ", icon: "🌱", color: "#FF6B6B", lessons: [1,2,3] },
+  { id: 2, title: "2-р багц", desc: "Байршил · Үдэлт · Улс орон", icon: "📚", color: "#4ECDC4", lessons: [4,5,6] },
+];
+
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let state = {
+  completed: JSON.parse(localStorage.getItem('kr_completed') || '[]'),
+  xp: parseInt(localStorage.getItem('kr_xp') || '0'),
+};
+
+let currentLesson = null;
+let matchState = {
+  pairs: [],
+  selectedKorean: null,
+  selectedMongolian: null,
+  matched: 0,
+  total: 0,
+  wrong: 0,
+  startTime: null,
+  roundPairs: [],
+  roundIndex: 0,
+};
+
+function saveState() {
+  localStorage.setItem('kr_completed', JSON.stringify(state.completed));
+  localStorage.setItem('kr_xp', state.xp);
+}
+
+// ══════════════════════════════════
+// HOME
+// ══════════════════════════════════
+function renderHome() {
+  const total = LESSONS.length;
+  const done = state.completed.length;
+  const pct = Math.round((done / total) * 100);
+
+  document.getElementById('total-progress').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${done} / ${total} хичээл дууссан`;
+
+  const container = document.getElementById('packs-container');
+  container.innerHTML = '';
+
+  PACKS.forEach(pack => {
+    const firstLesson = pack.lessons[0];
+    const prevPackDone = pack.id === 1 ? true :
+      PACKS[pack.id - 2].lessons.every(id => state.completed.includes(id));
+    const locked = !prevPackDone;
+
+    const card = document.createElement('div');
+    card.className = 'pack-card' + (locked ? ' locked' : '');
+
+    const dotsHtml = pack.lessons.map(lid => {
+      const isDone = state.completed.includes(lid);
+      const lesson = LESSONS.find(l => l.id === lid);
+      const cls = isDone ? 'done' : 'current';
+      return `<div class="lesson-dot ${cls}" onclick="event.stopPropagation(); ${locked ? '' : `startLesson(${lid})`}">
+        ${isDone ? '✓' : lid}
+      </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="pack-header">
+        <div class="pack-icon" style="background: ${pack.color}22;">${pack.icon}</div>
+        <div class="pack-info">
+          <div class="pack-title">${pack.title}</div>
+          <div class="pack-desc">${pack.desc}</div>
+        </div>
+        ${locked ? '<span style="font-size:20px">🔒</span>' : ''}
+      </div>
+      <div class="pack-lessons">${dotsHtml}</div>
+    `;
+
+    if (!locked) {
+      card.onclick = () => {
+        const nextLesson = pack.lessons.find(id => !state.completed.includes(id)) || pack.lessons[0];
+        startLesson(nextLesson);
+      };
+    }
+
+    container.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════
+// LESSON / MATCHING GAME
+// ══════════════════════════════════
+const PAIRS_PER_ROUND = 4;
+
+function startLesson(lessonId) {
+  currentLesson = LESSONS.find(l => l.id === lessonId);
+  if (!currentLesson) return;
+
+  matchState = {
+    pairs: shuffle([...currentLesson.words]),
+    selectedKorean: null,
+    selectedMongolian: null,
+    matched: 0,
+    total: currentLesson.words.length,
+    wrong: 0,
+    startTime: Date.now(),
+    roundIndex: 0,
+  };
+
+  document.getElementById('lesson-title').textContent = currentLesson.title + ' · ' + currentLesson.subtitle;
+  document.getElementById('xp-badge').textContent = '⭐ ' + currentLesson.xp + ' XP';
+  updateLessonProgress();
+  showScreen('lesson');
+  renderRound();
+}
+
+function getRoundPairs() {
+  const start = matchState.roundIndex * PAIRS_PER_ROUND;
+  return matchState.pairs.slice(start, start + PAIRS_PER_ROUND);
+}
+
+function renderRound() {
+  const pairs = getRoundPairs();
+  if (!pairs.length) {
+    finishLesson();
+    return;
+  }
+
+  const koreans = shuffle(pairs.map(p => p.k));
+  const mongolians = shuffle(pairs.map(p => p.m));
+
+  const colK = document.getElementById('col-korean');
+  const colM = document.getElementById('col-mongolian');
+  colK.innerHTML = '';
+  colM.innerHTML = '';
+
+  matchState.selectedKorean = null;
+  matchState.selectedMongolian = null;
+  matchState.roundMatched = 0;
+  matchState.roundTotal = pairs.length;
+
+  koreans.forEach(k => {
+    const el = document.createElement('div');
+    el.className = 'match-card';
+    el.textContent = k;
+    el.dataset.value = k;
+    el.dataset.type = 'korean';
+    el.onclick = () => selectCard(el, 'korean');
+    colK.appendChild(el);
+  });
+
+  mongolians.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'match-card';
+    el.textContent = m;
+    el.dataset.value = m;
+    el.dataset.type = 'mongolian';
+    el.onclick = () => selectCard(el, 'mongolian');
+    colM.appendChild(el);
+  });
+}
+
+function selectCard(el, type) {
+  if (el.classList.contains('correct')) return;
+
+  if (type === 'korean') {
+    document.querySelectorAll('[data-type="korean"].selected').forEach(e => e.classList.remove('selected'));
+    matchState.selectedKorean = el;
+    el.classList.add('selected');
+  } else {
+    document.querySelectorAll('[data-type="mongolian"].selected').forEach(e => e.classList.remove('selected'));
+    matchState.selectedMongolian = el;
+    el.classList.add('selected');
+  }
+
+  if (matchState.selectedKorean && matchState.selectedMongolian) {
+    checkMatch();
+  }
+}
+
+function checkMatch() {
+  const kEl = matchState.selectedKorean;
+  const mEl = matchState.selectedMongolian;
+  const kVal = kEl.dataset.value;
+  const mVal = mEl.dataset.value;
+
+  const pair = currentLesson.words.find(w => w.k === kVal);
+  const isMatch = pair && pair.m === mVal;
+
+  if (isMatch) {
+    kEl.classList.remove('selected');
+    mEl.classList.remove('selected');
+    kEl.classList.add('correct');
+    mEl.classList.add('correct');
+    matchState.matched++;
+    matchState.roundMatched = (matchState.roundMatched || 0) + 1;
+    updateLessonProgress();
+
+    if (matchState.roundMatched === matchState.roundTotal) {
+      se
+      {
+  "name": "한국어 — Солонгос хэл сургалт",
+  "short_name": "한국어",
+  "description": "Монгол хүүхдүүдэд зориулсан Солонгос хэлний сургалт",
+  "start_url": "/koreanlesson/",
+  "scope": "/koreanlesson/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1C1C2E",
+  "theme_color": "#FF3B30",
+  "lang": "mn",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+      }
+      const CACHE = 'korean-app-v1';
+const FILES = [
+  './',
+  './index.html',
+  './manifest.json',
+];
+
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    caches.match(e.request).then(cached => {
+      if (cached) return cached;
+      return fetch(e.request).then(res => {
+        const clone = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, clone));
+        return res;
+      });
+    }).catch(() => caches.match('./index.html'))
+  );
+});
+      
