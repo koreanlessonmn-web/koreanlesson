@@ -1,0 +1,17 @@
+{
+  "name": "한국어 — Солонгос хэл сургалт",
+  "short_name": "한국어",
+  "description": "Солонгос хэл сурцгаая",
+  "start_url": "/koreanlesson/",
+  "scope": "/koreanlesson/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1C1C2E",
+  "theme_color": "#FF3B30",
+  "lang": "mn",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
