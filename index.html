@@ -1,93 +1,3 @@
-<!DOCTYPE html>
-<html lang="mn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#FF3B30">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="한국어">
-<link rel="manifest" href="manifest.json">
-<title>한국어 — Солонгос хэл</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
-:root{--red:#FF3B30;--orange:#FF9500;--yellow:#FFCC00;--green:#34C759;--blue:#007AFF;--purple:#AF52DE;--bg:#F2F2F7;--card:#fff;--text:#1C1C1E;--text2:#6C6C70;--border:#E5E5EA;--radius:20px}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column}
-#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px}
-.home-header{text-align:center;margin-bottom:36px}
-.flag{font-size:60px;display:block;margin-bottom:12px;animation:fl 3s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-h1{font-size:30px;font-weight:900;color:#fff}
-.sub{font-size:14px;color:rgba(255,255,255,0.55);margin-top:6px}
-.pb-wrap{background:rgba(255,255,255,0.1);border-radius:100px;height:8px;margin:20px 0 6px;overflow:hidden}
-.pb-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:100px;transition:width .6s}
-.pb-text{font-size:13px;color:rgba(255,255,255,0.45);text-align:center}
-.lessons{display:flex;flex-direction:column;gap:16px}
-.les-card{border-radius:var(--radius);padding:20px;cursor:pointer;transition:transform .15s;border:none}
-.les-card:active{transform:scale(0.97)}
-.lc-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.lc-icon{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
-.lc-info{flex:1}
-.lc-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.6);margin-bottom:2px}
-.lc-title{font-size:18px;font-weight:900;color:#fff}
-.lc-count{font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px}
-.lc-status{font-size:24px}
-.lc-btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:15px;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;background:rgba(255,255,255,0.2);color:#fff}
-.lc-btn:active{opacity:0.8}
-/* LESSON TOP BAR */
-#lesson{background:var(--bg)}
-.ltb{display:flex;align-items:center;gap:10px;padding:54px 18px 14px;background:var(--card);border-bottom:1px solid var(--border)}
-.bbtn{width:34px;height:34px;border:none;background:var(--bg);border-radius:10px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:700}
-.linfo{flex:1}
-.lname{font-size:15px;font-weight:800}
-.lptext{font-size:11px;color:var(--text2);margin-top:2px}
-.xpb{background:var(--yellow);color:#000;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px}
-.lpbar{height:4px;background:var(--border)}
-.lpfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s}
-/* MATCHING GAME */
-#mg{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
-.gi{text-align:center;font-size:14px;font-weight:700;color:var(--text2);padding:4px}
-.ri{text-align:center;font-size:12px;color:var(--text2)}
-.mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1}
-.mcol{display:flex;flex-direction:column;gap:10px}
-.mcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .18s;font-size:13px;font-weight:700;color:var(--text);min-height:52px;display:flex;align-items:center;justify-content:center;line-height:1.3;box-shadow:0 2px 12px rgba(0,0,0,0.07);user-select:none;word-break:keep-all}
-.mcard:active{transform:scale(0.95)}
-.mcard.sel{border-color:var(--blue);background:rgba(0,122,255,0.07);color:var(--blue)}
-.mcard.ok{border-color:var(--green);background:rgba(52,199,89,0.08);color:var(--green);pointer-events:none}
-.mcard.err{border-color:var(--red);background:rgba(255,59,48,0.08);color:var(--red);animation:sh .3s}
-@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-/* MULTIPLE CHOICE GAME */
-#mcg{flex:1;padding:20px;display:flex;flex-direction:column;gap:16px}
-.mc-progress{font-size:13px;color:var(--text2);text-align:center}
-.mc-card{background:var(--card);border-radius:20px;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
-.mc-question{font-size:32px;font-weight:900;color:var(--text);margin-bottom:8px}
-.mc-hint{font-size:14px;color:var(--text2)}
-.mc-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
-.mc-opt{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;font-size:14px;font-weight:700;color:var(--text);box-shadow:0 2px 10px rgba(0,0,0,0.06);user-select:none;word-break:keep-all;min-height:56px;display:flex;align-items:center;justify-content:center}
-.mc-opt:active{transform:scale(0.96)}
-.mc-opt.correct{border-color:var(--green);background:rgba(52,199,89,0.1);color:var(--green);pointer-events:none}
-.mc-opt.wrong{border-color:var(--red);background:rgba(255,59,48,0.1);color:var(--red);pointer-events:none;animation:sh .3s}
-.mc-opt.disabled{pointer-events:none;opacity:0.5}
-/* COMPLETE */
-#complete{background:linear-gradient(160deg,#1C1C2E,#0D3349);align-items:center;justify-content:center;text-align:center;padding:40px 20px}
-.ce{font-size:76px;margin-bottom:22px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
-@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-.ct{font-size:30px;font-weight:900;color:#fff;margin-bottom:8px}
-.cs{font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:28px}
-.cst{display:flex;gap:14px;margin-bottom:36px;width:100%}
-.sb{flex:1;background:rgba(255,255,255,0.07);border-radius:16px;padding:18px 10px;border:1px solid rgba(255,255,255,0.1)}
-.sn{font-size:26px;font-weight:900;color:var(--yellow)}
-.sl{font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px}
-.btn{width:100%;padding:16px;border:none;border-radius:var(--radius);font-size:16px;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;transition:transform .15s;margin-bottom:10px}
-.btn:active{transform:scale(0.97)}
-.btnb{background:var(--blue);color:#fff}
-.btng{background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.18)}
-.cfw{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:999}
-.cfp{position:absolute;width:10px;height:10px;border-radius:2px;animation:cff 2.5s ease-in forwards}
-@keyframes cff{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-</style>
 </head>
 <body>
 
@@ -371,4 +281,167 @@ function renderHome(){
         '<div class="lc-info">'+
           '<div class="lc-num">'+les.id+'-р хичээл · '+gameLabel+'</div>'+
           '<div class="lc-title">'+les.sub+'</div>'+
-          '<div class="lc-coun
+          '<div class="lc-count">📝 '+les.w.length+' үг</div>'+
+        '</div>'+
+        '<div class="lc-status">'+(isDone?'✅':'▶️')+'</div>'+
+      '</div>'+
+      '<button class="lc-btn">'+(isDone?'🔄 Дахин тоглох':'▶️ Эхлэх')+'</button>';
+    card.querySelector('.lc-btn').onclick=function(e){e.stopPropagation();startL(les.id);};
+    card.onclick=function(){startL(les.id);};
+    lc.appendChild(card);
+  });
+}
+
+// ══ MATCHING GAME ══
+var RPR=4;
+function startMatch(){
+  document.getElementById('mg').style.display='flex';
+  document.getElementById('mcg').style.display='none';
+  MS.p=shuf(CL.w.slice());
+  MS.mat=0;MS.tot=CL.w.length;MS.wr=0;MS.ri=0;MS.rm=0;MS.rt=0;
+  updLP();renderR();
+}
+
+function getRPairs(){return MS.p.slice(MS.ri*RPR,MS.ri*RPR+RPR);}
+
+function renderR(){
+  var pairs=getRPairs();
+  if(!pairs.length){finish();return;}
+  var ks=shuf(pairs.map(function(p){return p.k;}));
+  var ms=shuf(pairs.map(function(p){return p.m;}));
+  document.getElementById('ck').innerHTML='';
+  document.getElementById('cm').innerHTML='';
+  MS.sk=null;MS.sm=null;MS.rm=0;MS.rt=pairs.length;
+  var tr=Math.ceil(MS.p.length/RPR);
+  document.getElementById('ri').textContent=(MS.ri+1)+' / '+tr+' дугаар';
+  ks.forEach(function(k){
+    var el=document.createElement('div');
+    el.className='mcard';el.textContent=k;el.dataset.v=k;el.dataset.t='k';
+    el.onclick=function(){selM(el,'k');};
+    document.getElementById('ck').appendChild(el);
+  });
+  ms.forEach(function(m){
+    var el=document.createElement('div');
+    el.className='mcard';el.textContent=m;el.dataset.v=m;el.dataset.t='m';
+    el.onclick=function(){selM(el,'m');};
+    document.getElementById('cm').appendChild(el);
+  });
+}
+
+function selM(el,t){
+  if(el.classList.contains('ok'))return;
+  if(t==='k'){document.querySelectorAll('[data-t="k"].sel').forEach(function(e){e.classList.remove('sel');});MS.sk=el;el.classList.add('sel');}
+  else{document.querySelectorAll('[data-t="m"].sel').forEach(function(e){e.classList.remove('sel');});MS.sm=el;el.classList.add('sel');}
+  if(MS.sk&&MS.sm)chkM();
+}
+
+function chkM(){
+  var ke=MS.sk,me=MS.sm,kv=ke.dataset.v,mv=me.dataset.v;
+  var pair=null;CL.w.forEach(function(w){if(w.k===kv)pair=w;});
+  if(pair&&pair.m===mv){
+    ke.classList.remove('sel');me.classList.remove('sel');
+    ke.classList.add('ok');me.classList.add('ok');
+    MS.mat++;MS.rm++;updLP();
+    if(MS.rm===MS.rt)setTimeout(function(){MS.ri++;renderR();},650);
+  } else {
+    MS.wr++;ke.classList.add('err');me.classList.add('err');
+    setTimeout(function(){ke.classList.remove('err','sel');me.classList.remove('err','sel');},500);
+  }
+  MS.sk=null;MS.sm=null;
+}
+
+// ══ MULTIPLE CHOICE GAME ══
+function startChoice(){
+  document.getElementById('mg').style.display='none';
+  document.getElementById('mcg').style.display='flex';
+  MS.qs=shuf(CL.w.slice());
+  MS.qi=0;MS.mat=0;MS.tot=CL.w.length;MS.wr=0;
+  renderQ();
+}
+
+function renderQ(){
+  if(MS.qi>=MS.qs.length){finish();return;}
+  var q=MS.qs[MS.qi];
+  document.getElementById('mc-prog').textContent=(MS.qi+1)+' / '+MS.qs.length+' асуулт';
+  document.getElementById('mc-q').textContent=q.k;
+  document.getElementById('mc-hint').textContent='';
+  updLP();
+
+  // 4 хариулт үүсгэнэ: 1 зөв + 3 буруу
+  var wrongs=shuf(CL.w.filter(function(w){return w.k!==q.k;})).slice(0,3);
+  var opts=shuf([q].concat(wrongs));
+
+  var container=document.getElementById('mc-opts');
+  container.innerHTML='';
+  opts.forEach(function(opt){
+    var btn=document.createElement('div');
+    btn.className='mc-opt';
+    btn.textContent=opt.m;
+    btn.onclick=function(){
+      if(opt.m===q.m){
+        btn.classList.add('correct');
+        MS.mat++;
+        setTimeout(function(){MS.qi++;renderQ();},700);
+      } else {
+        btn.classList.add('wrong');
+        MS.wr++;
+        // Зөв хариултыг харуулна
+        container.querySelectorAll('.mc-opt').forEach(function(b){
+          if(b.textContent===q.m)b.classList.add('correct');
+          else if(!b.classList.contains('wrong'))b.classList.add('disabled');
+        });
+        setTimeout(function(){MS.qi++;renderQ();},1200);
+      }
+    };
+    container.appendChild(btn);
+  });
+}
+
+function updLP(){
+  var pct=Math.round(MS.mat/MS.tot*100);
+  document.getElementById('lpfill').style.width=pct+'%';
+  document.getElementById('lptext').textContent=MS.mat+' / '+MS.tot+(CL.game==='match'?' холбосон':' зөв хариулт');
+}
+
+function startL(lid){
+  CL=null;LESSONS.forEach(function(l){if(l.id===lid)CL=l;});
+  if(!CL)return;
+  MS={t0:Date.now(),mat:0,tot:CL.w.length,wr:0};
+  document.getElementById('ltitle').textContent=CL.title;
+  document.getElementById('xpb').textContent='⭐ '+CL.xp+' XP';
+  updLP();show('lesson');
+  if(CL.game==='match')startMatch();
+  else startChoice();
+}
+
+function finish(){
+  var el=Math.round((Date.now()-MS.t0)/1000);
+  if(ST.done.indexOf(CL.id)<0){ST.done.push(CL.id);ST.xp+=CL.xp;save();}
+  document.getElementById('csub').textContent=CL.title+' дууслаа!';
+  document.getElementById('sxp').textContent='+'+CL.xp;
+  document.getElementById('smt').textContent=MS.mat+'/'+MS.tot;
+  document.getElementById('stm').textContent=el+'с';
+  show('complete');confetti();
+}
+
+function nextLesson(){
+  var ids=LESSONS.map(function(l){return l.id;}),idx=ids.indexOf(CL.id);
+  if(idx<ids.length-1)startL(ids[idx+1]); else goHome();
+}
+
+function confetti(){
+  var w=document.getElementById('cfw');w.innerHTML='';
+  var c=['#FF3B30','#FF9500','#FFCC00','#34C759','#007AFF','#AF52DE'];
+  for(var i=0;i<55;i++){
+    var el=document.createElement('div');el.className='cfp';
+    el.style.cssText='left:'+Math.random()*100+'%;background:'+c[Math.floor(Math.random()*c.length)]+';animation-delay:'+Math.random()*0.8+'s;animation-duration:'+(1.5+Math.random())+'s;width:'+(6+Math.random()*8)+'px;height:'+(6+Math.random()*8)+'px';
+    w.appendChild(el);
+  }
+  setTimeout(function(){w.innerHTML='';},3500);
+}
+
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+renderHome();
+</script>
+</body>
+</html>
