@@ -24,19 +24,18 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .pb-wrap{background:rgba(255,255,255,0.1);border-radius:100px;height:8px;margin:20px 0 6px;overflow:hidden}
 .pb-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:100px;transition:width .6s}
 .pb-text{font-size:13px;color:rgba(255,255,255,0.45);text-align:center}
-.packs{display:flex;flex-direction:column;gap:14px}
-.pack-card{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.13);border-radius:var(--radius);padding:18px;cursor:pointer;transition:transform .15s}
-.pack-card:active{transform:scale(0.97)}
-.pack-card.locked{opacity:0.4;pointer-events:none}
-.ph{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.pi{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.pinfo{flex:1}
-.ptitle{font-size:16px;font-weight:800;color:#fff}
-.pdesc{font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px}
-.pl{display:flex;gap:8px}
-.ld{flex:1;height:38px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,0.35);cursor:pointer;transition:all .2s}
-.ld.done{background:rgba(52,199,89,0.18);border-color:rgba(52,199,89,0.4);color:var(--green)}
-.ld.avail{color:#fff;border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.12)}
+.lessons{display:flex;flex-direction:column;gap:16px}
+.les-card{border-radius:var(--radius);padding:20px;cursor:pointer;transition:transform .15s;border:none}
+.les-card:active{transform:scale(0.97)}
+.lc-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.lc-icon{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.lc-info{flex:1}
+.lc-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.6);margin-bottom:2px}
+.lc-title{font-size:18px;font-weight:900;color:#fff}
+.lc-count{font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px}
+.lc-status{font-size:24px}
+.lc-btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:15px;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;background:rgba(255,255,255,0.2);color:#fff;backdrop-filter:blur(4px)}
+.lc-btn:active{opacity:0.8}
 #lesson{background:var(--bg)}
 .ltb{display:flex;align-items:center;gap:10px;padding:54px 18px 14px;background:var(--card);border-bottom:1px solid var(--border)}
 .bbtn{width:34px;height:34px;border:none;background:var(--bg);border-radius:10px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:700}
@@ -47,7 +46,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .lpbar{height:4px;background:var(--border)}
 .lpfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s}
 #mg{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
-.gi{text-align:center;font-size:14px;font-weight:700;color:var(--text2)}
+.gi{text-align:center;font-size:14px;font-weight:700;color:var(--text2);padding:4px}
 .ri{text-align:center;font-size:12px;color:var(--text2)}
 .mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1}
 .mcol{display:flex;flex-direction:column;gap:10px}
@@ -85,7 +84,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
     <div class="pb-wrap"><div class="pb-fill" id="pbf" style="width:0%"></div></div>
     <p class="pb-text" id="pbt">0 / 3 хичээл дууссан</p>
   </div>
-  <div class="packs" id="pc"></div>
+  <div class="lessons" id="lc"></div>
 </div>
 
 <div id="lesson" class="screen">
@@ -123,90 +122,198 @@ h1{font-size:30px;font-weight:900;color:#fff}
 </div>
 
 <script>
-var L=[
-  // ── ХИЧЭЭЛ 1 ──
-  {id:1,pi:1,title:"Мэргэжил",sub:"직업",xp:10,w:[
-    {k:"공무원",m:"Төрийн албан хаагч"},{k:"소방관",m:"Гал сөнөөгч"},
-    {k:"약사",m:"Эмийн санч"},{k:"의사",m:"Эмч"},
-    {k:"선생님",m:"Багш"},{k:"학생",m:"Сурагч"},
-    {k:"회사원",m:"Ажилтан"},{k:"주부",m:"Гэрийн эзэгтэй"},
-    {k:"운전기사",m:"Жолооч"},{k:"경찰",m:"Цагдаа"}
-  ]},
-
-  // ── ХИЧЭЭЛ 2 ──
-  {id:2,pi:1,title:"Газар, Эд зүйл",sub:"장소・물건",xp:10,w:[
-    {k:"가게",m:"Дэлгүүр"},{k:"가방",m:"Цүнх"},
-    {k:"강당",m:"Лекцийн танхим"},{k:"강의실",m:"Хичээлийн танхим"},
-    {k:"거기",m:"Тэр"},{k:"경찰서",m:"Цагдаагийн газар"},
-    {k:"공책",m:"Дэвтэр"},{k:"과일 가게",m:"Жимсний дэлгүүр"},
-    {k:"세미나실",m:"Семинарын өрөө"},{k:"시계",m:"Цаг"},
-    {k:"식당",m:"Цайны газар"},{k:"약국",m:"Эмийн сан"},
-    {k:"어디",m:"Хаана"},{k:"어학실",m:"Лингфоны танхим"},
-    {k:"없다",m:"Байхгүй"},{k:"교실",m:"Анги"},
-    {k:"그것",m:"Тэр зүйл"},{k:"극장",m:"Кино театр"},
-    {k:"도서관",m:"Номын сан"},{k:"동아리방",m:"Дугуйлан"},
-    {k:"라디오",m:"Радио"},{k:"많이",m:"Их"},
-    {k:"명동",m:"Мёндун хороолол"},{k:"의자",m:"Сандал"},
-    {k:"이것",m:"Энэ зүйл"},{k:"있다",m:"Байх"},
-    {k:"장소",m:"Газар"},{k:"저것",m:"Бүр тэр зүйл"},
-    {k:"저기",m:"Тэр"},{k:"지도",m:"Газрын зураг"},
-    {k:"우체국",m:"Шуудан"},{k:"운동장",m:"Цэнгэлдэх хүрээлэн"},
-    {k:"은행",m:"Банк"},{k:"무엇",m:"Юу"},
-    {k:"문",m:"Хаалга"},{k:"미용실",m:"Үсчин"},
-    {k:"백화점",m:"Их дэлгүүр"},{k:"병원",m:"Эмнэлэг"},
-    {k:"사무실",m:"Албан өрөө"},{k:"사전",m:"Толь бичиг"},
-    {k:"서점",m:"Номын дэлгүүр"},{k:"체육관",m:"Биеийн тамирын заал"},
-    {k:"휴대전화",m:"Гар утас"},{k:"여기",m:"Энэ"},
-    {k:"지우개",m:"Баллуур"},{k:"창문",m:"Цонх"},
-    {k:"책",m:"Ном"},{k:"책상",m:"Ширээ"},
-    {k:"칠판",m:"Самбар"},{k:"컴퓨터",m:"Компьютер"},
-    {k:"텔레비전",m:"Зурагт"},{k:"펜",m:"Үзэг"},
-    {k:"필통",m:"Пинал"},{k:"학교",m:"Сургууль"},
-    {k:"학생 식당",m:"Оюутны цайны газар"},{k:"화장실",m:"Ариун цэврийн өрөө"},
-    {k:"휴게실",m:"Амралтын өрөө"}
-  ]},
-
-  // ── ХИЧЭЭЛ 3 ──
-  {id:3,pi:1,title:"Үйл үгс, Тэмдэг нэр",sub:"동사・형용사",xp:10,w:[
-    {k:"가다",m:"Явах"},{k:"공부하다",m:"Хичээл хийх"},
-    {k:"공원",m:"Цэцэрлэгт хүрээлэн"},{k:"극장",m:"Кино театр"},
-    {k:"나쁘다",m:"Муу, муухай"},{k:"노래",m:"Дуу"},
-    {k:"누구",m:"Хэн"},{k:"대한빌딩",m:"Тэхан барилга"},
-    {k:"듣다",m:"Сонсох"},{k:"라디오",m:"Радио"},
-    {k:"마시다",m:"Уух"},{k:"만나다",m:"Уулзах"},
-    {k:"많다",m:"Их, олон"},{k:"먹다",m:"Идэх"},
-    {k:"빵",m:"Талх"},{k:"사과",m:"Алим"},
-    {k:"사다",m:"Худалдаж авах"},{k:"산책하다",m:"Салхилах"},
-    {k:"쇼핑하다",m:"Дэлгүүр хэсэх"},{k:"쉬다",m:"Амрах"},
-    {k:"시내",m:"Хотын төв"},{k:"시장",m:"Зах"},
-    {k:"식사하다",m:"Хооллох"},{k:"신문",m:"Сонин"},
-    {k:"아이스크림",m:"Зайрмаг"},{k:"아주",m:"Маш"},
-    {k:"어디",m:"Хаана"},{k:"언제",m:"Хэзээ"},
-    {k:"방",m:"Өрөө"},{k:"무엇",m:"Юу"},
-    {k:"보다",m:"Үзэх"},{k:"지금",m:"Одоо"},
-    {k:"차",m:"Цай, машин"},{k:"축구를 하다",m:"Хөл бөмбөг тоглох"},
-    {k:"옷",m:"Хувцас"},{k:"우유",m:"Сүү"},
-    {k:"운동하다",m:"Дасгал хийх"},{k:"위",m:"Дээр"},
-    {k:"음악",m:"Хөгжим"},{k:"이야기하다",m:"Ярих"},
-    {k:"일하다",m:"Ажиллах"},{k:"읽다",m:"Унших"},
-    {k:"자다",m:"Унтах"},{k:"여행",m:"Аялал"},
-    {k:"오다",m:"Ирэх"},{k:"친구",m:"Найз"},
-    {k:"카페",m:"Кафе"},{k:"커피",m:"Кофе"},
-    {k:"작다",m:"Жижиг"},{k:"재미없다",m:"Сонирхолгүй"},
-    {k:"재미있다",m:"Сонирхолтой"},{k:"적다",m:"Цөөн"},
-    {k:"전화하다",m:"Утсаар ярих"},{k:"좋다",m:"Сайн, сайхан"},
-    {k:"좋아하다",m:"Дуртай"},{k:"크다",m:"Том"},
-    {k:"헬스클럽",m:"Бялдаржуулах төв"},{k:"자주",m:"Байнга"}
-  ]}
-];
-
-var P=[
-  {id:1,title:"1-р багц",desc:"Мэргэжил · Газар, Эд зүйл · Үйл үгс",icon:"🌱",color:"#FF6B6B",ls:[1,2,3]}
+var LESSONS=[
+  {
+    id:1,title:"Хичээл 1",sub:"직업・나라・인사",xp:10,
+    color:"#FF6B6B",icon:"📚",
+    w:[
+      {k:"공무원",m:"Төрийн албан хаагч"},
+      {k:"소방관",m:"Гал сөнөөгч"},
+      {k:"약사",m:"Эмийн санч"},
+      {k:"의사",m:"Эмч"},
+      {k:"선생님",m:"Багш"},
+      {k:"학생",m:"Оюутан"},
+      {k:"회사원",m:"Ажилтан"},
+      {k:"주부",m:"Эзэгтэй"},
+      {k:"운전기사",m:"Жолооч"},
+      {k:"경찰",m:"Цагдаа"},
+      {k:"국적",m:"Иргэншил"},
+      {k:"나라",m:"Улс"},
+      {k:"몽골",m:"Монгол"},
+      {k:"한국",m:"Солонгос"},
+      {k:"미국",m:"Америк"},
+      {k:"영국",m:"Англи"},
+      {k:"일본",m:"Япон"},
+      {k:"중국",m:"Хятад"},
+      {k:"독일",m:"Герман"},
+      {k:"러시아",m:"Орос"},
+      {k:"안녕하세요",m:"Сайн байна уу?"},
+      {k:"감사합니다",m:"Баярлалаа"},
+      {k:"네",m:"Тийм"},
+      {k:"아니요",m:"Үгүй"},
+      {k:"이름",m:"Нэр"},
+      {k:"저",m:"Би"},
+      {k:"제",m:"Миний"},
+      {k:"씨",m:"Гуай"},
+      {k:"만나서 반갑습니다",m:"Уулзсандаа баяртай"},
+      {k:"처음 뵙겠습니다",m:"Танилцсандаа таатай байна"},
+      {k:"대학교",m:"Их сургууль"},
+      {k:"학교",m:"Сургууль"},
+      {k:"은행",m:"Банк"},
+      {k:"병원",m:"Эмнэлэг"},
+      {k:"약국",m:"Эмийн сан"},
+      {k:"우체국",m:"Шуудан"},
+      {k:"도서관",m:"Номын сан"},
+      {k:"식당",m:"Хоолны газар"},
+      {k:"카페",m:"Кафе"},
+      {k:"시장",m:"Зах"},
+      {k:"안녕히 가세요",m:"Сайн яваарай"},
+      {k:"안녕히 계세요",m:"Сайн сууж байгаарай"},
+      {k:"잘 가",m:"Баяртай"},
+      {k:"내일 봐요",m:"Маргааш уулзъя"},
+      {k:"수고하셨습니다",m:"Баярлалаа"},
+      {k:"죄송합니다",m:"Уучлаарай"},
+      {k:"태국",m:"Тайланд"},
+      {k:"베트남",m:"Вьетнам"},
+      {k:"프랑스",m:"Франц"},
+      {k:"호주",m:"Австрали"},
+      {k:"캐나다",m:"Канад"},
+      {k:"인도",m:"Энэтхэг"},
+      {k:"필리핀",m:"Филиппин"},
+      {k:"말레이시아",m:"Малайз"}
+    ]
+  },
+  {
+    id:2,title:"Хичээл 2",sub:"장소・물건",xp:10,
+    color:"#4ECDC4",icon:"🏫",
+    w:[
+      {k:"가게",m:"Дэлгүүр"},
+      {k:"가방",m:"Цүнх"},
+      {k:"강당",m:"Лекцийн танхим"},
+      {k:"강의실",m:"Хичээлийн танхим"},
+      {k:"거기",m:"Тэр"},
+      {k:"경찰서",m:"Цагдаагийн газар"},
+      {k:"공책",m:"Дэвтэр"},
+      {k:"과일 가게",m:"Жимсний дэлгүүр"},
+      {k:"세미나실",m:"Семинарын өрөө"},
+      {k:"시계",m:"Цаг"},
+      {k:"식당",m:"Цайны газар"},
+      {k:"약국",m:"Эмийн сан"},
+      {k:"어디",m:"Хаана"},
+      {k:"어학실",m:"Лингфоны танхим"},
+      {k:"없다",m:"Байхгүй"},
+      {k:"교실",m:"Анги"},
+      {k:"그것",m:"Тэр зүйл"},
+      {k:"극장",m:"Кино театр"},
+      {k:"도서관",m:"Номын сан"},
+      {k:"동아리방",m:"Дугуйлан"},
+      {k:"라디오",m:"Радио"},
+      {k:"많이",m:"Их"},
+      {k:"명동",m:"Мёндун хороолол"},
+      {k:"의자",m:"Сандал"},
+      {k:"이것",m:"Энэ зүйл"},
+      {k:"있다",m:"Байх"},
+      {k:"장소",m:"Газар"},
+      {k:"저것",m:"Бүр тэр зүйл"},
+      {k:"저기",m:"Тэр"},
+      {k:"지도",m:"Газрын зураг"},
+      {k:"우체국",m:"Шуудан"},
+      {k:"운동장",m:"Цэнгэлдэх хүрээлэн"},
+      {k:"은행",m:"Банк"},
+      {k:"무엇",m:"Юу"},
+      {k:"문",m:"Хаалга"},
+      {k:"미용실",m:"Үсчин"},
+      {k:"백화점",m:"Их дэлгүүр"},
+      {k:"병원",m:"Эмнэлэг"},
+      {k:"사무실",m:"Албан өрөө"},
+      {k:"사전",m:"Толь бичиг"},
+      {k:"서점",m:"Номын дэлгүүр"},
+      {k:"체육관",m:"Биеийн тамирын заал"},
+      {k:"휴대전화",m:"Гар утас"},
+      {k:"여기",m:"Энэ"},
+      {k:"지우개",m:"Баллуур"},
+      {k:"창문",m:"Цонх"},
+      {k:"책",m:"Ном"},
+      {k:"책상",m:"Ширээ"},
+      {k:"칠판",m:"Самбар"},
+      {k:"컴퓨터",m:"Компьютер"},
+      {k:"텔레비전",m:"Зурагт"},
+      {k:"펜",m:"Үзэг"},
+      {k:"필통",m:"Пинал"},
+      {k:"학교",m:"Сургууль"},
+      {k:"학생 식당",m:"Оюутны цайны газар"},
+      {k:"화장실",m:"Ариун цэврийн өрөө"},
+      {k:"휴게실",m:"Амралтын өрөө"}
+    ]
+  },
+  {
+    id:3,title:"Хичээл 3",sub:"동사・형용사",xp:10,
+    color:"#A29BFE",icon:"✏️",
+    w:[
+      {k:"가다",m:"Явах"},
+      {k:"공부하다",m:"Хичээл хийх"},
+      {k:"공원",m:"Цэцэрлэгт хүрээлэн"},
+      {k:"극장",m:"Кино театр"},
+      {k:"나쁘다",m:"Муу, муухай"},
+      {k:"노래",m:"Дуу"},
+      {k:"누구",m:"Хэн"},
+      {k:"대한빌딩",m:"Тэхан барилга"},
+      {k:"듣다",m:"Сонсох"},
+      {k:"라디오",m:"Радио"},
+      {k:"마시다",m:"Уух"},
+      {k:"만나다",m:"Уулзах"},
+      {k:"많다",m:"Их, олон"},
+      {k:"먹다",m:"Идэх"},
+      {k:"빵",m:"Талх"},
+      {k:"사과",m:"Алим"},
+      {k:"사다",m:"Худалдаж авах"},
+      {k:"산책하다",m:"Салхилах"},
+      {k:"쇼핑하다",m:"Дэлгүүр хэсэх"},
+      {k:"쉬다",m:"Амрах"},
+      {k:"시내",m:"Хотын төв"},
+      {k:"시장",m:"Зах"},
+      {k:"식사하다",m:"Хооллох"},
+      {k:"신문",m:"Сонин"},
+      {k:"아이스크림",m:"Зайрмаг"},
+      {k:"아주",m:"Маш"},
+      {k:"어디",m:"Хаана"},
+      {k:"언제",m:"Хэзээ"},
+      {k:"방",m:"Өрөө"},
+      {k:"무엇",m:"Юу"},
+      {k:"보다",m:"Үзэх"},
+      {k:"지금",m:"Одоо"},
+      {k:"차",m:"Цай, машин"},
+      {k:"축구를 하다",m:"Хөл бөмбөг тоглох"},
+      {k:"옷",m:"Хувцас"},
+      {k:"우유",m:"Сүү"},
+      {k:"운동하다",m:"Дасгал хийх"},
+      {k:"위",m:"Дээр"},
+      {k:"음악",m:"Хөгжим"},
+      {k:"이야기하다",m:"Ярих"},
+      {k:"일하다",m:"Ажиллах"},
+      {k:"읽다",m:"Унших"},
+      {k:"자다",m:"Унтах"},
+      {k:"여행",m:"Аялал"},
+      {k:"오다",m:"Ирэх"},
+      {k:"친구",m:"Найз"},
+      {k:"카페",m:"Кафе"},
+      {k:"커피",m:"Кофе"},
+      {k:"작다",m:"Жижиг"},
+      {k:"재미없다",m:"Сонирхолгүй"},
+      {k:"재미있다",m:"Сонирхолтой"},
+      {k:"적다",m:"Цөөн"},
+      {k:"전화하다",m:"Утсаар ярих"},
+      {k:"좋다",m:"Сайн, сайхан"},
+      {k:"좋아하다",m:"Дуртай"},
+      {k:"크다",m:"Том"},
+      {k:"헬스클럽",m:"Бялдаржуулах төв"},
+      {k:"자주",m:"Байнга"}
+    ]
+  }
 ];
 
 var ST={done:JSON.parse(localStorage.getItem('kd')||'[]'),xp:parseInt(localStorage.getItem('kx')||'0')};
-var CL=null;
-var MS={};
+var CL=null,MS={};
 
 function save(){localStorage.setItem('kd',JSON.stringify(ST.done));localStorage.setItem('kx',ST.xp);}
 function shuf(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
@@ -214,42 +321,40 @@ function show(id){document.querySelectorAll('.screen').forEach(function(s){s.cla
 function goHome(){renderHome();show('home');}
 
 function renderHome(){
-  var tot=L.length,dn=ST.done.length;
+  var tot=LESSONS.length,dn=ST.done.length;
   document.getElementById('pbf').style.width=Math.round(dn/tot*100)+'%';
   document.getElementById('pbt').textContent=dn+' / '+tot+' хичээл дууссан';
-  var pc=document.getElementById('pc');
-  pc.innerHTML='';
-  P.forEach(function(pack){
-    var locked=pack.id>1&&!P[pack.id-2].ls.every(function(id){return ST.done.indexOf(id)>=0;});
-    var dots='';
-    pack.ls.forEach(function(lid){
-      var d=ST.done.indexOf(lid)>=0;
-      dots+='<div class="ld '+(d?'done':'avail')+'" data-lid="'+lid+'">'+(d?'✓':lid)+'</div>';
-    });
+  var lc=document.getElementById('lc');
+  lc.innerHTML='';
+  LESSONS.forEach(function(les){
+    var isDone=ST.done.indexOf(les.id)>=0;
     var card=document.createElement('div');
-    card.className='pack-card'+(locked?' locked':'');
-    card.innerHTML='<div class="ph"><div class="pi" style="background:'+pack.color+'22">'+pack.icon+'</div><div class="pinfo"><div class="ptitle">'+pack.title+'</div><div class="pdesc">'+pack.desc+'</div></div>'+(locked?'<span style="font-size:18px">🔒</span>':'')+'</div><div class="pl">'+dots+'</div>';
-    if(!locked){
-      card.onclick=function(){
-        var nxt=pack.ls.find(function(id){return ST.done.indexOf(id)<0;})||pack.ls[0];
-        startL(nxt);
-      };
-      card.querySelectorAll('.ld').forEach(function(d){
-        d.onclick=function(e){e.stopPropagation();startL(parseInt(d.dataset.lid));};
-      });
-    }
-    pc.appendChild(card);
+    card.className='les-card';
+    card.style.background='linear-gradient(135deg,'+les.color+','+les.color+'99)';
+    card.innerHTML=
+      '<div class="lc-top">'+
+        '<div class="lc-icon">'+les.icon+'</div>'+
+        '<div class="lc-info">'+
+          '<div class="lc-num">'+les.id+'-р хичээл</div>'+
+          '<div class="lc-title">'+les.sub+'</div>'+
+          '<div class="lc-count">📝 '+les.w.length+' үг</div>'+
+        '</div>'+
+        '<div class="lc-status">'+(isDone?'✅':'▶️')+'</div>'+
+      '</div>'+
+      '<button class="lc-btn">'+(isDone?'🔄 Дахин тоглох':'▶️ Эхлэх')+'</button>';
+    card.querySelector('.lc-btn').onclick=function(e){e.stopPropagation();startL(les.id);};
+    card.onclick=function(){startL(les.id);};
+    lc.appendChild(card);
   });
 }
 
 var RPR=4;
-
 function startL(lid){
   CL=null;
-  L.forEach(function(l){if(l.id===lid)CL=l;});
+  LESSONS.forEach(function(l){if(l.id===lid)CL=l;});
   if(!CL)return;
   MS={p:shuf(CL.w.slice()),sk:null,sm:null,mat:0,tot:CL.w.length,wr:0,t0:Date.now(),ri:0,rm:0,rt:0};
-  document.getElementById('ltitle').textContent=CL.title+' · '+CL.sub;
+  document.getElementById('ltitle').textContent=CL.title;
   document.getElementById('xpb').textContent='⭐ '+CL.xp+' XP';
   updLP();show('lesson');renderR();
 }
@@ -289,7 +394,8 @@ function sel(el,t){
 
 function chk(){
   var ke=MS.sk,me=MS.sm,kv=ke.dataset.v,mv=me.dataset.v;
-  var pair=null;CL.w.forEach(function(w){if(w.k===kv)pair=w;});
+  var pair=null;
+  CL.w.forEach(function(w){if(w.k===kv)pair=w;});
   if(pair&&pair.m===mv){
     ke.classList.remove('sel');me.classList.remove('sel');
     ke.classList.add('ok');me.classList.add('ok');
@@ -305,13 +411,13 @@ function chk(){
 function updLP(){
   var pct=Math.round(MS.mat/MS.tot*100);
   document.getElementById('lpfill').style.width=pct+'%';
-  document.getElementById('lptext').textContent=MS.mat+' / '+MS.tot+' холбосон';
+  document.getElementById('lptext').textContent=MS.mat+' / '+MS.tot+' үг холбосон';
 }
 
 function finish(){
   var el=Math.round((Date.now()-MS.t0)/1000);
   if(ST.done.indexOf(CL.id)<0){ST.done.push(CL.id);ST.xp+=CL.xp;save();}
-  document.getElementById('csub').textContent=CL.title+' хичээлийг дууслаа!';
+  document.getElementById('csub').textContent=CL.title+' дууслаа!';
   document.getElementById('sxp').textContent='+'+CL.xp;
   document.getElementById('smt').textContent=MS.mat+'/'+MS.tot;
   document.getElementById('stm').textContent=el+'с';
@@ -319,8 +425,8 @@ function finish(){
 }
 
 function nextLesson(){
-  var ids=L.map(function(l){return l.id;}),idx=ids.indexOf(CL.id);
-  if(idx<ids.length-1)startL(ids[idx+1]);else goHome();
+  var ids=LESSONS.map(function(l){return l.id;}),idx=ids.indexOf(CL.id);
+  if(idx<ids.length-1)startL(ids[idx+1]); else goHome();
 }
 
 function confetti(){
