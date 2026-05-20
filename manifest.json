@@ -1,7 +1,7 @@
 {
-  "name": "한국어 — Солонгос хэл сургалт",
+  "name": "한국어 — Солонгос хэл 1р ном",
   "short_name": "한국어",
-  "description": "Солонгос хэл сурцгаая",
+  "description": "үг цээжлэх хэцүү биш",
   "start_url": "/koreanlesson/",
   "scope": "/koreanlesson/",
   "display": "standalone",
