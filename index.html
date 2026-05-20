@@ -6,17 +6,14 @@
 <meta name="theme-color" content="#FF3B30">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="한국어">
-<link rel="manifest" href="manifest.json">
 <title>한국어 — Солонгос хэл</title>
 <style>
-
 :root{--red:#FF3B30;--orange:#FF9500;--yellow:#FFCC00;--green:#34C759;--blue:#007AFF;--purple:#AF52DE;--bg:#F2F2F7;--card:#fff;--text:#1C1C1E;--text2:#6C6C70;--border:#E5E5EA;--radius:20px}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 .screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column}
-#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px;overflow-y:auto}
 .screen.active{display:flex;flex-direction:column;overflow-y:auto}
+#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px}
 .home-header{text-align:center;margin-bottom:36px}
 .flag{font-size:60px;display:block;margin-bottom:12px;animation:fl 3s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -24,7 +21,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .sub{font-size:14px;color:rgba(255,255,255,0.55);margin-top:6px}
 .pb-wrap{background:rgba(255,255,255,0.1);border-radius:100px;height:8px;margin:20px 0 6px;overflow:hidden}
 .pb-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:100px;transition:width .6s}
-.pb-text{font-size:13px;color:rgba(255,255,255,0.45);text-align:center}
+.pb-text{font-size:13px;color:rgba(255,255,255,0.45);text-align:center;margin-bottom:20px}
 .lessons{display:flex;flex-direction:column;gap:16px}
 .les-card{border-radius:var(--radius);padding:20px;cursor:pointer;transition:transform .15s;border:none}
 .les-card:active{transform:scale(0.97)}
@@ -37,6 +34,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .lc-status{font-size:24px}
 .lc-btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:15px;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;cursor:pointer;background:rgba(255,255,255,0.2);color:#fff}
 .lc-btn:active{opacity:0.8}
+
 /* LESSON TOP BAR */
 #lesson{background:var(--bg)}
 .ltb{display:flex;align-items:center;gap:10px;padding:54px 18px 14px;background:var(--card);border-bottom:1px solid var(--border)}
@@ -47,6 +45,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .xpb{background:var(--yellow);color:#000;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px}
 .lpbar{height:4px;background:var(--border)}
 .lpfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s}
+
 /* MATCHING GAME */
 #mg{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
 .gi{text-align:center;font-size:14px;font-weight:700;color:var(--text2);padding:4px}
@@ -59,6 +58,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .mcard.ok{border-color:var(--green);background:rgba(52,199,89,0.08);color:var(--green);pointer-events:none}
 .mcard.err{border-color:var(--red);background:rgba(255,59,48,0.08);color:var(--red);animation:sh .3s}
 @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
 /* MULTIPLE CHOICE GAME */
 #mcg{flex:1;padding:20px;display:flex;flex-direction:column;gap:16px}
 .mc-progress{font-size:13px;color:var(--text2);text-align:center}
@@ -71,6 +71,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .mc-opt.correct{border-color:var(--green);background:rgba(52,199,89,0.1);color:var(--green);pointer-events:none}
 .mc-opt.wrong{border-color:var(--red);background:rgba(255,59,48,0.1);color:var(--red);pointer-events:none;animation:sh .3s}
 .mc-opt.disabled{pointer-events:none;opacity:0.5}
+
 /* COMPLETE */
 #complete{background:linear-gradient(160deg,#1C1C2E,#0D3349);align-items:center;justify-content:center;text-align:center;padding:40px 20px}
 .ce{font-size:76px;margin-bottom:22px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
@@ -96,11 +97,11 @@ h1{font-size:30px;font-weight:900;color:#fff}
   <div class="home-header">
     <span class="flag">🇰🇷</span>
     <h1>한국어 солонгос хэл</h1>
-    <p class="sub">үг цээжлэх хэцүү биш</p> 
-    <div class="pb-wrap"><div class="pb-fill" id="pbf" style="width:0%"></div></diхүүхдүүдэд  </div>
+    <p class="sub">үг цээжлэх хэцүү биш</p>
+    <div class="pb-wrap"><div class="pb-fill" id="pbf" style="width:0%"></div></div>
+    <p class="pb-text" id="pbt">0 / 6 хичээл дууссан</p>
+  </div>
   <div class="lessons" id="lc"></div>
-     <div class="pb-wrap"><div class="pb-fill" id="pbf" style="width:0%"></div></div>
-    <p class="pb-text" id="pbt">0 / 6 хичээл дууссан</p>   
 </div>
 
 <div id="lesson" class="screen">
@@ -146,7 +147,6 @@ h1{font-size:30px;font-weight:900;color:#fff}
 
 <script>
 var LESSONS=[
-  // ══ 1-3: MATCHING GAME ══
   {
     id:1,title:"Хичээл 1",sub:"직업・나라・인사",xp:10,game:"match",color:"#FF6B6B",icon:"📚",
     w:[
@@ -247,7 +247,6 @@ var LESSONS=[
       {k:"헬스클럽",m:"Бялдаржуулах төв"},{k:"자주",m:"Байнга"}
     ]
   },
-  // ══ 4-6: MULTIPLE CHOICE GAME ══
   {
     id:4,title:"Хичээл 4",sub:"날짜・시간",xp:15,game:"choice",color:"#FD79A8",icon:"📅",
     w:[
@@ -356,17 +355,202 @@ function goHome(){renderHome();show('home');}
 
 function renderHome(){
   var tot=LESSONS.length,dn=ST.done.length;
-  document.getElementById('pbf').style.width=Math.round(dn/tot*100)+'%';
-  document.getElementById('pbt').textContent=dn+' / '+tot+' хичээл дууссан';
-  var lc=document.getElementById('lc');
-  lc.innerHTML='';
+  document.getElementById('pbf').style.width=(dn/tot*100)+'%';
+  document.getElementById('pbt').innerText=dn+' / '+tot+' хичээл дууссан';
+  var lc=document.getElementById('lc');lc.innerHTML='';
   LESSONS.forEach(function(les){
-    var isDone=ST.done.indexOf(les.id)>=0;
-    var gameLabel=les.game==='match'?'🔗 Matching Game':'🎯 Multiple Choice';
+    var done=ST.done.indexOf(les.id)>=0;
     var card=document.createElement('div');
     card.className='les-card';
-    card.style.background='linear-gradient(135deg,'+les.color+','+les.color+'bb)';
-    card.innerHTML=
-      '<div class="lc-top">'+
-        '<div class="lc-icon">'+les.icon+'</div>'+
-        '<div class="lc-info">
+    card.style.background='linear-gradient(135deg,'+les.color+','+les.color+'aa)';
+    card.innerHTML='<div class="lc-top"><div class="lc-icon">'+les.icon+'</div><div class="lc-info"><div class="lc-num">'+les.sub+'</div><div class="lc-title">'+les.title+'</div><div class="lc-count">'+les.w.length+' үг</div></div><div class="lc-status">'+(done?'✅':'🔓')+'</div></div><button class="lc-btn">'+(done?'Дахин хийх':'Эхлэх')+'</button>';
+    card.onclick=function(){startLesson(les);};
+    lc.appendChild(card);
+  });
+}
+
+/* ─── MATCH GAME ─── */
+var MG={pairs:null,selK:null,selM:null,done:0,total:0,wrong:0,start:0};
+
+function startLesson(les){
+  CL=les;
+  document.getElementById('ltitle').innerText=les.title;
+  document.getElementById('lptext').innerText=les.sub;
+  document.getElementById('xpb').innerText='⭐ '+les.xp+' XP';
+  document.getElementById('lpfill').style.width='0%';
+  MS={correct:0,total:0,wrong:0,start:Date.now()};
+
+  if(les.game==='match'){
+    document.getElementById('mg').style.display='flex';
+    document.getElementById('mcg').style.display='none';
+    startMatch();
+  } else {
+    document.getElementById('mg').style.display='none';
+    document.getElementById('mcg').style.display='flex';
+    startChoice();
+  }
+  show('lesson');
+}
+
+function startMatch(){
+  var pool=shuf(CL.w).slice(0,5);
+  MG.pairs=pool;MG.selK=null;MG.selM=null;MG.done=0;MG.total=pool.length;MG.wrong=0;MG.start=Date.now();
+  MS.total=pool.length;
+  document.getElementById('ri').innerText='0 / '+pool.length+' тохирсон';
+  var ks=shuf(pool.map(function(p){return p.k;}));
+  var ms=shuf(pool.map(function(p){return p.m;}));
+  var ck=document.getElementById('ck');ck.innerHTML='';
+  var cm=document.getElementById('cm');cm.innerHTML='';
+  ks.forEach(function(k){
+    var d=document.createElement('div');d.className='mcard';d.innerText=k;d.dataset.val=k;d.dataset.type='k';
+    d.onclick=function(){clickMatch(this);};ck.appendChild(d);
+  });
+  ms.forEach(function(m){
+    var d=document.createElement('div');d.className='mcard';d.innerText=m;d.dataset.val=m;d.dataset.type='m';
+    d.onclick=function(){clickMatch(this);};cm.appendChild(d);
+  });
+}
+
+function clickMatch(el){
+  if(el.classList.contains('ok')||el.classList.contains('err'))return;
+  var t=el.dataset.type;
+  if(t==='k'){
+    if(MG.selK){MG.selK.classList.remove('sel');}
+    MG.selK=el;el.classList.add('sel');
+  } else {
+    if(MG.selM){MG.selM.classList.remove('sel');}
+    MG.selM=el;el.classList.add('sel');
+  }
+  if(MG.selK&&MG.selM){
+    var kv=MG.selK.dataset.val,mv=MG.selM.dataset.val;
+    var match=MG.pairs.find(function(p){return p.k===kv&&p.m===mv;});
+    if(match){
+      MG.selK.classList.remove('sel');MG.selK.classList.add('ok');
+      MG.selM.classList.remove('sel');MG.selM.classList.add('ok');
+      MG.done++;MS.correct++;
+      document.getElementById('ri').innerText=MG.done+' / '+MG.total+' тохирсон';
+      document.getElementById('lpfill').style.width=(MG.done/MG.total*100)+'%';
+      MG.selK=null;MG.selM=null;
+      if(MG.done===MG.total){
+        MS.wrong=MG.wrong;
+        setTimeout(function(){
+          // Load next batch or finish
+          var remaining=CL.w.filter(function(p){
+            return !document.querySelector('.mcard.ok[data-val="'+p.k+'"]');
+          });
+          if(remaining.length>0){
+            var pool=shuf(remaining).slice(0,5);
+            MG.pairs=pool;MG.selK=null;MG.selM=null;MG.done=0;MG.total=pool.length;
+            MS.total+=pool.length;
+            document.getElementById('ri').innerText='0 / '+pool.length+' тохирсон';
+            var ks=shuf(pool.map(function(p){return p.k;}));
+            var ms2=shuf(pool.map(function(p){return p.m;}));
+            var ck=document.getElementById('ck');ck.innerHTML='';
+            var cm=document.getElementById('cm');cm.innerHTML='';
+            ks.forEach(function(k){
+              var d=document.createElement('div');d.className='mcard';d.innerText=k;d.dataset.val=k;d.dataset.type='k';
+              d.onclick=function(){clickMatch(this);};ck.appendChild(d);
+            });
+            ms2.forEach(function(m){
+              var d=document.createElement('div');d.className='mcard';d.innerText=m;d.dataset.val=m;d.dataset.type='m';
+              d.onclick=function(){clickMatch(this);};cm.appendChild(d);
+            });
+          } else {
+            finishLesson();
+          }
+        },600);
+      }
+    } else {
+      MG.wrong++;
+      MG.selK.classList.add('err');MG.selM.classList.add('err');
+      setTimeout(function(){
+        if(MG.selK){MG.selK.classList.remove('sel','err');}
+        if(MG.selM){MG.selM.classList.remove('sel','err');}
+        MG.selK=null;MG.selM=null;
+      },500);
+    }
+  }
+}
+
+/* ─── CHOICE GAME ─── */
+var CG={idx:0,items:null,wrong:0};
+
+function startChoice(){
+  CG.items=shuf(CL.w).slice(0,20);
+  CG.idx=0;CG.wrong=0;
+  MS.total=CG.items.length;
+  showChoice();
+}
+
+function showChoice(){
+  var item=CG.items[CG.idx];
+  var prog=CG.idx+1,tot=CG.items.length;
+  document.getElementById('mc-prog').innerText=prog+' / '+tot;
+  document.getElementById('lpfill').style.width=((CG.idx/tot)*100)+'%';
+  document.getElementById('mc-q').innerText=item.k;
+  document.getElementById('mc-hint').innerText='Монгол утгыг сонгоорой';
+  var wrong3=shuf(CG.items.filter(function(x){return x.m!==item.m;})).slice(0,3);
+  var opts=shuf([item].concat(wrong3));
+  var oc=document.getElementById('mc-opts');oc.innerHTML='';
+  opts.forEach(function(o){
+    var btn=document.createElement('div');btn.className='mc-opt';btn.innerText=o.m;
+    btn.onclick=function(){
+      if(o.m===item.m){
+        btn.classList.add('correct');
+        MS.correct++;
+        setTimeout(function(){
+          CG.idx++;
+          if(CG.idx>=CG.items.length){MS.wrong=CG.wrong;finishLesson();}
+          else showChoice();
+        },600);
+      } else {
+        btn.classList.add('wrong');
+        CG.wrong++;
+        oc.querySelectorAll('.mc-opt').forEach(function(b){b.classList.add('disabled');});
+        setTimeout(function(){
+          CG.idx++;
+          if(CG.idx>=CG.items.length){MS.wrong=CG.wrong;finishLesson();}
+          else showChoice();
+        },1000);
+      }
+    };
+    oc.appendChild(btn);
+  });
+}
+
+/* ─── FINISH ─── */
+function finishLesson(){
+  if(ST.done.indexOf(CL.id)<0){ST.done.push(CL.id);ST.xp+=CL.xp;save();}
+  var sec=Math.round((Date.now()-MS.start)/1000);
+  document.getElementById('csub').innerText=CL.title+' дууслаа!';
+  document.getElementById('sxp').innerText='+'+CL.xp;
+  document.getElementById('smt').innerText=MS.correct+'/'+MS.total;
+  document.getElementById('stm').innerText=sec+'с';
+  confetti();
+  show('complete');
+}
+
+function nextLesson(){
+  var idx=LESSONS.findIndex(function(l){return l.id===CL.id;});
+  if(idx<LESSONS.length-1){startLesson(LESSONS[idx+1]);}
+  else goHome();
+}
+
+function confetti(){
+  var fw=document.getElementById('cfw');fw.innerHTML='';
+  var colors=['#FF6B6B','#4ECDC4','#FFCC00','#A29BFE','#FD79A8','#00B894'];
+  for(var i=0;i<60;i++){
+    var p=document.createElement('div');p.className='cfp';
+    p.style.left=Math.random()*100+'%';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDelay=Math.random()*1.5+'s';
+    p.style.width=p.style.height=(6+Math.random()*8)+'px';
+    fw.appendChild(p);
+  }
+}
+
+// Init
+renderHome();
+</script>
+</body>
+</html>
