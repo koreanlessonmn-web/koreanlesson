@@ -100,6 +100,12 @@ h1{font-size:28px;font-weight:900;color:#fff}
 .btnb{background:var(--blue);color:#fff}
 .btng{background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.18)}
 
+/* FLIP */
+.fcard{background:var(--blue);border-radius:12px;min-height:70px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:800;color:#fff;text-align:center;padding:6px;transition:all .3s;word-break:keep-all;line-height:1.3;border:2px solid transparent}
+.fcard.open{background:var(--card);color:var(--text);border-color:var(--blue)}
+.fcard.matched{background:rgba(52,199,89,0.15);color:var(--green);border-color:var(--green);pointer-events:none}
+.fcard.wrong{background:rgba(255,59,48,0.15);border-color:var(--red)}
+
 /* CONFETTI */
 .cfw{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:999}
 .cfp{position:absolute;border-radius:2px;animation:cff 2.5s ease-in forwards}
@@ -157,6 +163,13 @@ h1{font-size:28px;font-weight:900;color:#fff}
       <div class="tp-disp" id="tp-disp"></div>
     </div>
     <div class="tp-btns" id="tp-btns"></div>
+  </div>
+
+  <!-- Flip panel -->
+  <div id="flg" class="gpanel">
+    <div id="fl-prog" style="text-align:center;font-size:13px;color:var(--text2)"></div>
+    <div style="text-align:center;font-size:14px;font-weight:700;color:var(--text2)">🃏 Хос картыг олоорой</div>
+    <div id="fl-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex:1"></div>
   </div>
 </div>
 
@@ -466,6 +479,93 @@ var LESSONS=[
       {k:"지하",m:"Газар доор"},{k:"하숙집",m:"Хөлсний өрөө"},
       {k:"지하철역",m:"Метроны буудал"},{k:"화장대",m:"Гоо сайхны тавиур"}
     ]
+  },
+  {
+    id:10,title:"Хичээл 10",sub:"хүндэтгэл・гэр бүл",xp:15,game:"flip",color:"#FDA7DF",icon:"👨‍👩‍👧",
+    w:[
+      {k:"있다→계시다",m:"Байх"},{k:"이름→성함",m:"Нэр → нэр алдар"},
+      {k:"먹다→드시다",m:"Идэх → зооглох"},{k:"생일→생신",m:"Төрсөн өдөр → мэндэлсэн өдөр"},
+      {k:"자다→주무시다",m:"Унтах → нойрсох"},{k:"나이→연세",m:"Нас → нас сүүдэр"},
+      {k:"말하다→말씀하시다",m:"Ярих → айлтгах"},{k:"밥→진지",m:"Хоол → зооог"},
+      {k:"죽다→돌아가시다",m:"Үхэх → нас барах"},{k:"말→말씀",m:"Яриа → айлтгал"},
+      {k:"집→댁",m:"Гэр → өргөө"},{k:"교수",m:"Профессор"},
+      {k:"연구원",m:"Судлаач"},{k:"고모부",m:"Авга эгчийн нөхөр"},
+      {k:"고양이",m:"Муур"},{k:"군인",m:"Цэрэг"},
+      {k:"사업가",m:"Бизнесмэн"},{k:"공항",m:"Онгоцны буудал"},
+      {k:"변호사",m:"Өмгөөлөгч"},{k:"근무",m:"Ажил"},
+      {k:"경찰관",m:"Цагдаа"},{k:"근처",m:"Ойролцоо"},
+      {k:"통역사",m:"Орчуулагч"},{k:"나중에",m:"Дараа"},
+      {k:"농부",m:"Тариаланч"},{k:"대가족",m:"Их гэр бүл"},
+      {k:"사업을 하다",m:"Бизнес эрхлэх"},{k:"댁",m:"Өргөө"},
+      {k:"장사를 하다",m:"Наймаа хийх"},{k:"돌아가시다",m:"Өөд болох"},
+      {k:"출장을 가다",m:"Томилолтоор явах"},{k:"되다",m:"Болох"},
+      {k:"강아지",m:"Гөлөг"},{k:"드시다",m:"Зооглох"},
+      {k:"결혼식",m:"Хурмийн ёслол"},{k:"딸",m:"Охин"},
+      {k:"고모",m:"Авга эгч"},{k:"분",m:"Эрхэм"},
+      {k:"삼촌",m:"Авга ах"},{k:"사촌",m:"Үеэл"},
+      {k:"술",m:"Архи"},{k:"외아들",m:"Айлын ганц хүү"},
+      {k:"아내",m:"Эхнэр"},{k:"유치원생",m:"Цэцэрлэгийн хүүхэд"},
+      {k:"아들",m:"Хүү"},{k:"전공하다",m:"Мэргэших"},
+      {k:"열심히",m:"Хэчээнгүйлэн"},{k:"초등학생",m:"Бага ангийн сурагч"},
+      {k:"올해",m:"Энэ жил"},{k:"큰아버지",m:"Авга ах"},
+      {k:"외동딸",m:"Айлын ганц охин"},{k:"큰어머니",m:"Том бэргэн"}
+    ]
+  },
+  {
+    id:11,title:"Хичээл 11",sub:"цаг агаар・улирал",xp:15,game:"flip",color:"#74B9FF",icon:"🌤️",
+    w:[
+      {k:"가을",m:"Намар"},{k:"기온",m:"Агаарын хэм"},
+      {k:"가장",m:"Хамгийн"},{k:"긴팔 옷",m:"Урт ханцуйтай хувцас"},
+      {k:"겨울",m:"Өвөл"},{k:"깨끗하다",m:"Цэвэрхэн"},
+      {k:"곱다",m:"Тэгш сайхан"},{k:"날씨",m:"Цаг агаар"},
+      {k:"구름",m:"Үүл"},{k:"노란색",m:"Шар өнгө"},
+      {k:"구름이 끼다",m:"Үүлших"},{k:"눈",m:"Цас"},
+      {k:"도와주다",m:"Тусалж өгөх"},{k:"비가 그치다",m:"Бороо зогсох"},
+      {k:"돕다",m:"Туслах"},{k:"비가 오다/내리다",m:"Бороо орох"},
+      {k:"따뜻하다",m:"Дулаахан"},{k:"비슷하다",m:"Адил, төстэй"},
+      {k:"맑다",m:"Цэлмэг"},{k:"스노보드",m:"Цанын гулгуур"},
+      {k:"목도리",m:"Ороолт"},{k:"스키",m:"Цана"},
+      {k:"바람이 불다",m:"Салхилах"},{k:"스키장",m:"Цанын бааз"},
+      {k:"반바지",m:"Шорт"},{k:"시끄럽다",m:"Шуугиантай"},
+      {k:"반팔 옷",m:"Богино ханцуйтай хувцас"},{k:"쌀쌀하다",m:"Сэрүүхэн"},
+      {k:"봄",m:"Хавар"},{k:"아름답다",m:"Үзэсгэлэнтэй"},
+      {k:"부츠",m:"Урт түрийтэй гутал"},{k:"여름",m:"Зун"},
+      {k:"비",m:"Бороо"},{k:"영상",m:"Нэмэх хэм"},
+      {k:"눈이 그치다",m:"Цас зогсох"},{k:"영하",m:"Хасах хэм"},
+      {k:"눈이 오다/내리다",m:"Цас орох"},{k:"좁다",m:"Давчуу"},
+      {k:"단풍",m:"Шарласан навч"},{k:"추억",m:"Дурсамж"},
+      {k:"답장",m:"Хариулт"},{k:"춥다",m:"Хүйтэн"},
+      {k:"덥다",m:"Халуун"},{k:"필요하다",m:"Хэрэгтэй"},
+      {k:"도",m:"Хэм"},{k:"하늘",m:"Тэнгэр"},
+      {k:"우산",m:"Шүхэр"},{k:"하얀 눈",m:"Цагаан цас"},
+      {k:"입다",m:"Өмсөх"},{k:"해(태양)",m:"Нар"},
+      {k:"장갑",m:"Бээлий"},{k:"호수",m:"Нуур"},
+      {k:"흐리다",m:"Бүрхэг"}
+    ]
+  },
+  {
+    id:12,title:"Хичээл 12",sub:"утас・холбоо",xp:15,game:"flip",color:"#55EFC4",icon:"📱",
+    w:[
+      {k:"공중전화",m:"Нийтийн утас"},{k:"맞다",m:"Таарах, тохирох"},
+      {k:"국내 전화",m:"Дотоодын утас"},{k:"문자 메시지를 받다",m:"Мессэж авах"},
+      {k:"국제전화",m:"Олон улсын утас"},{k:"문자 메시지를 보내다",m:"Мессэж илгээх"},
+      {k:"그분",m:"Тэр хүн"},{k:"사장님",m:"Захирал"},
+      {k:"깨우다",m:"Сэрээх"},{k:"소리",m:"Дуу чимээ"},
+      {k:"남기다",m:"Үлдээх"},{k:"수신자 부담",m:"Хүлээн авагч төлөх"},
+      {k:"내다",m:"Төлөх"},{k:"약속",m:"Амлалт, болзоо"},
+      {k:"늦게",m:"Оройтох, хоцрох"},{k:"얼마나",m:"Хэр"},
+      {k:"답장을 받다",m:"Хариу авах"},{k:"역사",m:"Түүх"},
+      {k:"답장을 보내다",m:"Хариу илгээх"},{k:"연락처",m:"Холбоо барих дугаар"},
+      {k:"대사관",m:"Элчин сайдын яам"},{k:"인터넷 전화",m:"Интернэт утас"},
+      {k:"들어오다",m:"Орох"},{k:"전화 요금",m:"Утасны төлбөр"},
+      {k:"말씀 드리다",m:"Айлтгах"},{k:"전화 카드",m:"Утасны карт"},
+      {k:"전화가 오다",m:"Дуулдаг ирэх"},{k:"전화번호",m:"Утасны дугаар"},
+      {k:"전화를 걸다/하다",m:"Утас залгах"},{k:"정하다",m:"Тогтоох"},
+      {k:"전화를 끊다",m:"Утсаа таслах"},{k:"짐",m:"Ачаа"},
+      {k:"전화를 바꾸다",m:"Утсаа шилжүүлэх"},{k:"집 전화",m:"Гэрийн утас"},
+      {k:"전화를 받다",m:"Утсаа авах"},{k:"출발하다",m:"Хөдлөх"},
+      {k:"휴대전화",m:"Гар утас"},{k:"통화 중이다",m:"Утас завгүй байх"}
+    ]
   }
 ];
 
@@ -573,6 +673,9 @@ function startLesson(les) {
   } else if (les.game === 'typer') {
     showPanel('tpg');
     startTyper();
+  } else if (les.game === 'flip') {
+    showPanel('flg');
+    startFlip();
   } else {
     showPanel('mcg');
     startChoice();
@@ -778,48 +881,35 @@ function showTyper() {
   shuf(allBtns).forEach(function(b) { container.appendChild(b); });
 }
 
-// ── FINISH ─────────────────────────────────────────────
-function finishLesson() {
-  if (ST.done.indexOf(CL.id) < 0) {
-    ST.done.push(CL.id);
-    ST.xp += CL.xp;
-    save();
-  }
-  var sec = Math.round((Date.now() - MS.start) / 1000);
-  document.getElementById('csub').innerText = CL.title + ' дууслаа!';
-  document.getElementById('sxp').innerText  = '+' + CL.xp;
-  document.getElementById('smt').innerText  = MS.correct + '/' + MS.total;
-  document.getElementById('stm').innerText  = sec + 'с';
-  confetti();
-  showScreen('complete');
+// ── FLIP GAME ──────────────────────────────────────────
+var FL = {pairs:null,cards:[],first:null,second:null,matched:0,wrong:0,locked:false};
+
+function startFlip(){
+  FL.pairs=shuf(CL.w).slice(0,8);
+  FL.first=null;FL.second=null;FL.matched=0;FL.wrong=0;FL.locked=false;
+  MS.total=FL.pairs.length;
+  var items=[];
+  FL.pairs.forEach(function(p){
+    items.push({val:p.k,pair:p.k,type:'k'});
+    items.push({val:p.m,pair:p.k,type:'m'});
+  });
+  items=shuf(items);
+  FL.cards=items;
+  var grid=document.getElementById('fl-grid');grid.innerHTML='';
+  document.getElementById('fl-prog').innerText='0 / '+FL.pairs.length+' хос олдсон';
+  document.getElementById('lpfill').style.width='0%';
+  items.forEach(function(item,i){
+    var d=document.createElement('div');
+    d.className='fcard';
+    d.dataset.idx=i;
+    d.dataset.pair=item.pair;
+    d.dataset.type=item.type;
+    d.innerText='?';
+    d.onclick=function(){clickFlip(d,item);};
+    grid.appendChild(d);
+  });
 }
 
-function nextLesson() {
-  var idx = LESSONS.findIndex(function(l){ return l.id === CL.id; });
-  if (idx >= 0 && idx < LESSONS.length-1) { startLesson(LESSONS[idx+1]); }
-  else { goHome(); }
-}
-
-function confetti() {
-  var fw = document.getElementById('cfw'); fw.innerHTML = '';
-  var colors = ['#FF6B6B','#4ECDC4','#FFCC00','#A29BFE','#FD79A8','#00B894'];
-  for (var i = 0; i < 60; i++) {
-    var p = document.createElement('div');
-    p.className = 'cfp';
-    var sz = 6 + Math.random()*8;
-    p.style.cssText = 'left:'+Math.random()*100+'%;width:'+sz+'px;height:'+sz+'px;background:'
-      +colors[Math.floor(Math.random()*colors.length)]+';animation-delay:'+Math.random()*1.5+'s';
-    fw.appendChild(p);
-  }
-}
-
-// ── BUTTON EVENTS ──────────────────────────────────────
-document.getElementById('backBtn').addEventListener('click', function(){ goHome(); });
-document.getElementById('nextBtn').addEventListener('click', function(){ nextLesson(); });
-document.getElementById('homeBtn2').addEventListener('click', function(){ goHome(); });
-
-// ── INIT ───────────────────────────────────────────────
-renderHome();
-</script>
-</body>
-</html>
+function clickFlip(el,item){
+  if(FL.locked||el.classList.contains('matched')||el.classList.contains('open'))return;
+  el.classList.
