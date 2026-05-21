@@ -47,7 +47,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 .lpfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s}
 
 /* MATCHING GAME */
-#mg{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
+#mg{flex:1;padding:18px;flex-direction:column;gap:10px}
 .gi{text-align:center;font-size:14px;font-weight:700;color:var(--text2);padding:4px}
 .ri{text-align:center;font-size:12px;color:var(--text2)}
 .mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1}
@@ -60,7 +60,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
 @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
 /* MULTIPLE CHOICE GAME */
-#mcg{flex:1;padding:20px;display:flex;flex-direction:column;gap:16px}
+#mcg{flex:1;padding:20px;flex-direction:column;gap:16px}
 .mc-progress{font-size:13px;color:var(--text2);text-align:center}
 .mc-card{background:var(--card);border-radius:20px;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
 .mc-question{font-size:32px;font-weight:900;color:var(--text);margin-bottom:8px}
@@ -115,7 +115,7 @@ h1{font-size:30px;font-weight:900;color:#fff}
   </div>
   <div class="lpbar"><div class="lpfill" id="lpfill" style="width:0%"></div></div>
   <!-- Matching game -->
-  <div id="mg">
+  <div id="mg" style="display:none">
     <div class="gi">🔗 Тохирох үгийг холбоорой</div>
     <div class="ri" id="ri"></div>
     <div class="mc"><div class="mcol" id="ck"></div><div class="mcol" id="cm"></div></div>
@@ -369,4 +369,4 @@ var LESSONS=[
       {k:"소설책",m:"Роман"},{k:"수박",m:"Тарвас"},
       {k:"주스",m:"Жүүс"},{k:"옷",m:"Хувцас"},
       {k:"채소",m:"Хүнсний ногоо"},{k:"음료수",m:"Ундаа"},
-      {k:"치마",m:"Юбка"}
+      {k:"치마",m:"Юбка"},{k:"
