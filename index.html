@@ -16,7 +16,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg
 /* SCREENS */
 .screen{display:none;min-height:100vh;flex-direction:column}
 .screen.active{display:flex}
-#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px;overflow-y:auto}
+#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px}
+#home.active{display:block}
 #lesson{background:var(--bg);overflow-y:auto}
 #complete{background:linear-gradient(160deg,#1C1C2E,#0D3349);align-items:center;justify-content:center;text-align:center;padding:40px 20px}
 
@@ -121,7 +122,7 @@ h1{font-size:28px;font-weight:900;color:#fff}
     <h1>한국어 солонгос хэл</h1>
     <p class="sub">үг цээжлэх хэцүү биш</p>
     <div class="pb-wrap"><div class="pb-fill" id="pbf" style="width:0%"></div></div>
-    <p class="pb-text" id="pbt">0 / 9 хичээл дууссан</p>
+    <p class="pb-text" id="pbt">0 / 12 хичээл дууссан</p>
   </div>
   <div class="lessons" id="lc"></div>
 </div>
@@ -912,4 +913,72 @@ function startFlip(){
 
 function clickFlip(el,item){
   if(FL.locked||el.classList.contains('matched')||el.classList.contains('open'))return;
-  el.classList.
+  el.classList.add('open');
+  el.innerText=item.val;
+  if(!FL.first){FL.first={el:el,item:item};return;}
+  FL.second={el:el,item:item};
+  FL.locked=true;
+  var a=FL.first,b=FL.second;
+  if(a.item.pair===b.item.pair&&a.item.type!==b.item.type){
+    a.el.classList.add('matched');b.el.classList.add('matched');
+    FL.matched++;MS.correct++;
+    document.getElementById('fl-prog').innerText=FL.matched+' / '+FL.pairs.length+' хос олдсон';
+    document.getElementById('lpfill').style.width=(FL.matched/FL.pairs.length*100)+'%';
+    FL.first=null;FL.second=null;FL.locked=false;
+    if(FL.matched===FL.pairs.length){MS.wrong=FL.wrong;setTimeout(finishLesson,600);}
+  } else {
+    FL.wrong++;
+    a.el.classList.add('wrong');b.el.classList.add('wrong');
+    setTimeout(function(){
+      a.el.classList.remove('open','wrong');a.el.innerText='?';
+      b.el.classList.remove('open','wrong');b.el.innerText='?';
+      FL.first=null;FL.second=null;FL.locked=false;
+    },1000);
+  }
+}
+
+// ── FINISH ─────────────────────────────────────────────
+function finishLesson() {
+  if (ST.done.indexOf(CL.id) < 0) {
+    ST.done.push(CL.id);
+    ST.xp += CL.xp;
+    save();
+  }
+  var sec = Math.round((Date.now() - MS.start) / 1000);
+  document.getElementById('csub').innerText = CL.title + ' дууслаа!';
+  document.getElementById('sxp').innerText  = '+' + CL.xp;
+  document.getElementById('smt').innerText  = MS.correct + '/' + MS.total;
+  document.getElementById('stm').innerText  = sec + 'с';
+  confetti();
+  showScreen('complete');
+}
+
+function nextLesson() {
+  var idx = LESSONS.findIndex(function(l){ return l.id === CL.id; });
+  if (idx >= 0 && idx < LESSONS.length-1) { startLesson(LESSONS[idx+1]); }
+  else { goHome(); }
+}
+
+function confetti() {
+  var fw = document.getElementById('cfw'); fw.innerHTML = '';
+  var colors = ['#FF6B6B','#4ECDC4','#FFCC00','#A29BFE','#FD79A8','#00B894'];
+  for (var i = 0; i < 60; i++) {
+    var p = document.createElement('div');
+    p.className = 'cfp';
+    var sz = 6 + Math.random()*8;
+    p.style.cssText = 'left:'+Math.random()*100+'%;width:'+sz+'px;height:'+sz+'px;background:'
+      +colors[Math.floor(Math.random()*colors.length)]+';animation-delay:'+Math.random()*1.5+'s';
+    fw.appendChild(p);
+  }
+}
+
+// ── BUTTON EVENTS ──────────────────────────────────────
+document.getElementById('backBtn').addEventListener('click', function(){ goHome(); });
+document.getElementById('nextBtn').addEventListener('click', function(){ nextLesson(); });
+document.getElementById('homeBtn2').addEventListener('click', function(){ goHome(); });
+
+// ── INIT ───────────────────────────────────────────────
+renderHome();
+</script>
+</body>
+</html>
