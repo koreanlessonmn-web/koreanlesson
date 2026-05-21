@@ -3,96 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#FF3B30">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="한국어">
 <title>한국어 — Солонгос хэл</title>
 <style>
-:root{--red:#FF3B30;--orange:#FF9500;--yellow:#FFCC00;--green:#34C759;--blue:#007AFF;--purple:#AF52DE;--bg:#F2F2F7;--card:#fff;--text:#1C1C1E;--text2:#6C6C70;--border:#E5E5EA;--radius:20px}
+:root{
+  --red:#FF3B30;--orange:#FF9500;--yellow:#FFCC00;--green:#34C759;
+  --blue:#007AFF;--purple:#AF52DE;--bg:#F2F2F7;--card:#fff;
+  --text:#1C1C1E;--text2:#6C6C70;--border:#E5E5EA;--radius:20px;
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column;overflow-y:auto}
-#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* SCREENS */
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+#home{background:linear-gradient(160deg,#1C1C2E,#2D1B69,#1a1a2e);padding:60px 20px 40px;overflow-y:auto}
+#lesson{background:var(--bg);overflow-y:auto}
+#complete{background:linear-gradient(160deg,#1C1C2E,#0D3349);align-items:center;justify-content:center;text-align:center;padding:40px 20px}
+
+/* HOME */
 .home-header{text-align:center;margin-bottom:36px}
 .flag{font-size:60px;display:block;margin-bottom:12px;animation:fl 3s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-h1{font-size:30px;font-weight:900;color:#fff}
+h1{font-size:28px;font-weight:900;color:#fff}
 .sub{font-size:14px;color:rgba(255,255,255,0.55);margin-top:6px}
 .pb-wrap{background:rgba(255,255,255,0.1);border-radius:100px;height:8px;margin:20px 0 6px;overflow:hidden}
 .pb-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:100px;transition:width .6s}
 .pb-text{font-size:13px;color:rgba(255,255,255,0.45);text-align:center;margin-bottom:20px}
-.lessons{display:flex;flex-direction:column;gap:16px}
-.les-card{border-radius:var(--radius);padding:20px;cursor:pointer;transition:transform .15s;border:none}
+.lessons{display:flex;flex-direction:column;gap:14px}
+.les-card{border-radius:var(--radius);padding:18px 16px;cursor:pointer;transition:transform .15s}
 .les-card:active{transform:scale(0.97)}
-.lc-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.lc-icon{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.lc-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.lc-icon{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
 .lc-info{flex:1}
-.lc-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.6);margin-bottom:2px}
-.lc-title{font-size:18px;font-weight:900;color:#fff}
-.lc-count{font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px}
-.lc-status{font-size:24px}
-.lc-btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:15px;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;cursor:pointer;background:rgba(255,255,255,0.2);color:#fff}
-.lc-btn:active{opacity:0.8}
+.lc-num{font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);margin-bottom:2px}
+.lc-title{font-size:17px;font-weight:900;color:#fff}
+.lc-count{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
+.lc-status{font-size:22px}
+.lc-btn{width:100%;padding:12px;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;background:rgba(255,255,255,0.22);color:#fff;font-family:inherit}
+.lc-btn:active{opacity:0.75}
 
 /* LESSON TOP BAR */
-#lesson{background:var(--bg)}
-.ltb{display:flex;align-items:center;gap:10px;padding:54px 18px 14px;background:var(--card);border-bottom:1px solid var(--border)}
-.bbtn{width:34px;height:34px;border:none;background:var(--bg);border-radius:10px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:700}
-.linfo{flex:1}
-.lname{font-size:15px;font-weight:800}
+.ltb{display:flex;align-items:center;gap:10px;padding:50px 16px 12px;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0}
+.bbtn{width:36px;height:36px;border:none;background:var(--bg);border-radius:10px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:700;flex-shrink:0}
+.linfo{flex:1;min-width:0}
+.lname{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lptext{font-size:11px;color:var(--text2);margin-top:2px}
-.xpb{background:var(--yellow);color:#000;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px}
-.lpbar{height:4px;background:var(--border)}
+.xpb{background:var(--yellow);color:#000;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px;flex-shrink:0}
+.lpbar{height:4px;background:var(--border);flex-shrink:0}
 .lpfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s}
 
-/* MATCHING GAME */
-#mg{flex:1;padding:18px;flex-direction:column;gap:10px}
+/* GAME PANELS */
+.gpanel{flex:1;padding:16px;display:none;flex-direction:column;gap:12px;overflow-y:auto}
+.gpanel.active{display:flex}
+
+/* MATCH */
 .gi{text-align:center;font-size:14px;font-weight:700;color:var(--text2);padding:4px}
-.ri{text-align:center;font-size:12px;color:var(--text2)}
-.mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1}
-.mcol{display:flex;flex-direction:column;gap:10px}
-.mcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .18s;font-size:13px;font-weight:700;color:var(--text);min-height:52px;display:flex;align-items:center;justify-content:center;line-height:1.3;box-shadow:0 2px 12px rgba(0,0,0,0.07);user-select:none;word-break:keep-all}
-.mcard:active{transform:scale(0.95)}
-.mcard.sel{border-color:var(--blue);background:rgba(0,122,255,0.07);color:var(--blue)}
-.mcard.ok{border-color:var(--green);background:rgba(52,199,89,0.08);color:var(--green);pointer-events:none}
+.ri{text-align:center;font-size:12px;color:var(--text2);margin-bottom:4px}
+.mcols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mcard{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .18s;font-size:13px;font-weight:700;color:var(--text);min-height:50px;display:flex;align-items:center;justify-content:center;line-height:1.3;word-break:keep-all;user-select:none}
+.mcard.sel{border-color:var(--blue);background:rgba(0,122,255,0.08);color:var(--blue)}
+.mcard.ok{border-color:var(--green);background:rgba(52,199,89,0.1);color:var(--green);pointer-events:none}
 .mcard.err{border-color:var(--red);background:rgba(255,59,48,0.08);color:var(--red);animation:sh .3s}
 @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-/* MULTIPLE CHOICE GAME */
-#mcg{flex:1;padding:20px;flex-direction:column;gap:16px}
-.mc-progress{font-size:13px;color:var(--text2);text-align:center}
-.mc-card{background:var(--card);border-radius:20px;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
-.mc-question{font-size:32px;font-weight:900;color:var(--text);margin-bottom:8px}
-.mc-hint{font-size:14px;color:var(--text2)}
-.mc-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
-.mc-opt{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;font-size:14px;font-weight:700;color:var(--text);box-shadow:0 2px 10px rgba(0,0,0,0.06);user-select:none;word-break:keep-all;min-height:56px;display:flex;align-items:center;justify-content:center}
-.mc-opt:active{transform:scale(0.96)}
+/* CHOICE */
+.mc-prog{text-align:center;font-size:13px;color:var(--text2)}
+.mc-card{background:var(--card);border-radius:18px;padding:24px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.mc-q{font-size:30px;font-weight:900;color:var(--text);margin-bottom:6px;word-break:keep-all}
+.mc-hint{font-size:13px;color:var(--text2)}
+.mc-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mc-opt{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .18s;font-size:13px;font-weight:700;color:var(--text);min-height:52px;display:flex;align-items:center;justify-content:center;word-break:keep-all;user-select:none}
 .mc-opt.correct{border-color:var(--green);background:rgba(52,199,89,0.1);color:var(--green);pointer-events:none}
 .mc-opt.wrong{border-color:var(--red);background:rgba(255,59,48,0.1);color:var(--red);pointer-events:none;animation:sh .3s}
-.mc-opt.disabled{pointer-events:none;opacity:0.5}
+.mc-opt.dim{pointer-events:none;opacity:0.45}
+
+/* TYPER */
+.tp-prog{text-align:center;font-size:13px;color:var(--text2)}
+.tp-card{background:var(--card);border-radius:18px;padding:24px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.tp-mn{font-size:20px;font-weight:900;color:var(--text);margin-bottom:14px;word-break:keep-all}
+.tp-disp{font-size:28px;font-weight:900;letter-spacing:3px;min-height:40px;color:var(--blue)}
+.tp-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tp-btn{padding:12px 16px;font-size:20px;font-weight:900;border:2px solid var(--border);border-radius:12px;background:var(--card);cursor:pointer;font-family:inherit;min-width:50px;transition:all .15s;color:var(--text)}
+.tp-btn:disabled{opacity:0.4;cursor:default}
 
 /* COMPLETE */
-#complete{background:linear-gradient(160deg,#1C1C2E,#0D3349);align-items:center;justify-content:center;text-align:center;padding:40px 20px}
-.ce{font-size:76px;margin-bottom:22px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
-@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-.ct{font-size:30px;font-weight:900;color:#fff;margin-bottom:8px}
-.cs{font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:28px}
-.cst{display:flex;gap:14px;margin-bottom:36px;width:100%}
-.sb{flex:1;background:rgba(255,255,255,0.07);border-radius:16px;padding:18px 10px;border:1px solid rgba(255,255,255,0.1)}
-.sn{font-size:26px;font-weight:900;color:var(--yellow)}
+.ce{font-size:72px;margin-bottom:20px}
+.ct{font-size:28px;font-weight:900;color:#fff;margin-bottom:8px}
+.cs{font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:24px}
+.cst{display:flex;gap:12px;margin-bottom:32px;width:100%}
+.sb{flex:1;background:rgba(255,255,255,0.07);border-radius:14px;padding:16px 8px;border:1px solid rgba(255,255,255,0.1);text-align:center}
+.sn{font-size:24px;font-weight:900;color:var(--yellow)}
 .sl{font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px}
-.btn{width:100%;padding:16px;border:none;border-radius:var(--radius);font-size:16px;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;cursor:pointer;transition:transform .15s;margin-bottom:10px}
+.btn{width:100%;padding:15px;border:none;border-radius:var(--radius);font-size:16px;font-weight:800;cursor:pointer;margin-bottom:10px;font-family:inherit;transition:transform .15s}
 .btn:active{transform:scale(0.97)}
 .btnb{background:var(--blue);color:#fff}
 .btng{background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.18)}
+
+/* CONFETTI */
 .cfw{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:999}
-.cfp{position:absolute;width:10px;height:10px;border-radius:2px;animation:cff 2.5s ease-in forwards}
+.cfp{position:absolute;border-radius:2px;animation:cff 2.5s ease-in forwards}
 @keyframes cff{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 </style>
 </head>
 <body>
 
+<!-- HOME SCREEN -->
 <div id="home" class="screen active">
   <div class="home-header">
     <span class="flag">🇰🇷</span>
@@ -104,9 +120,10 @@ h1{font-size:30px;font-weight:900;color:#fff}
   <div class="lessons" id="lc"></div>
 </div>
 
+<!-- LESSON SCREEN -->
 <div id="lesson" class="screen">
   <div class="ltb">
-    <button class="bbtn" onclick="goHome()">←</button>
+    <button class="bbtn" id="backBtn">←</button>
     <div class="linfo">
       <div class="lname" id="ltitle">Хичээл</div>
       <div class="lptext" id="lptext"></div>
@@ -114,32 +131,36 @@ h1{font-size:30px;font-weight:900;color:#fff}
     <div class="xpb" id="xpb">⭐ 10 XP</div>
   </div>
   <div class="lpbar"><div class="lpfill" id="lpfill" style="width:0%"></div></div>
-  <!-- Matching game -->
-  <div id="mg" style="display:none">
+
+  <!-- Match panel -->
+  <div id="mg" class="gpanel">
     <div class="gi">🔗 Тохирох үгийг холбоорой</div>
-    <div class="ri" id="ri"></div>
-    <div class="mc"><div class="mcol" id="ck"></div><div class="mcol" id="cm"></div></div>
+    <div class="ri" id="ri">0 / 5 тохирсон</div>
+    <div class="mcols"><div class="mcol" id="ck"></div><div class="mcol" id="cm"></div></div>
   </div>
-  <!-- Multiple choice game -->
-  <div id="mcg" style="display:none">
-    <div class="mc-progress" id="mc-prog"></div>
+
+  <!-- Choice panel -->
+  <div id="mcg" class="gpanel">
+    <div class="mc-prog" id="mc-prog">1 / 20</div>
     <div class="mc-card">
-      <div class="mc-question" id="mc-q"></div>
-      <div class="mc-hint" id="mc-hint"></div>
+      <div class="mc-q" id="mc-q"></div>
+      <div class="mc-hint" id="mc-hint">Монгол утгыг сонгоорой</div>
     </div>
-    <div class="mc-options" id="mc-opts"></div>
+    <div class="mc-opts" id="mc-opts"></div>
   </div>
-  <!-- Typer game -->
-  <div id="tpg" style="display:none;flex:1;padding:20px;flex-direction:column;gap:16px">
-    <div id="tp-prog" style="text-align:center;font-size:13px;color:var(--text2)"></div>
-    <div style="background:var(--card);border-radius:20px;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08)">
-      <div id="tp-mn" style="font-size:22px;font-weight:900;color:var(--text);margin-bottom:16px"></div>
-      <div id="tp-display" style="font-size:30px;font-weight:900;letter-spacing:4px;min-height:44px;color:var(--blue)"></div>
+
+  <!-- Typer panel -->
+  <div id="tpg" class="gpanel">
+    <div class="tp-prog" id="tp-prog">1 / 15</div>
+    <div class="tp-card">
+      <div class="tp-mn" id="tp-mn"></div>
+      <div class="tp-disp" id="tp-disp"></div>
     </div>
-    <div id="tp-btns" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center"></div>
+    <div class="tp-btns" id="tp-btns"></div>
   </div>
 </div>
 
+<!-- COMPLETE SCREEN -->
 <div id="complete" class="screen">
   <div class="cfw" id="cfw"></div>
   <div class="ce">🎉</div>
@@ -150,8 +171,8 @@ h1{font-size:30px;font-weight:900;color:#fff}
     <div class="sb"><div class="sn" id="smt">0/0</div><div class="sl">Зөв хариулт</div></div>
     <div class="sb"><div class="sn" id="stm">0с</div><div class="sl">Хугацаа</div></div>
   </div>
-  <button class="btn btnb" onclick="nextLesson()">Дараагийн хичээл →</button>
-  <button class="btn btng" onclick="goHome()">Нүүр хуудас</button>
+  <button class="btn btnb" id="nextBtn">Дараагийн хичээл →</button>
+  <button class="btn btng" id="homeBtn2">Нүүр хуудас</button>
 </div>
 
 <script>
@@ -369,4 +390,433 @@ var LESSONS=[
       {k:"소설책",m:"Роман"},{k:"수박",m:"Тарвас"},
       {k:"주스",m:"Жүүс"},{k:"옷",m:"Хувцас"},
       {k:"채소",m:"Хүнсний ногоо"},{k:"음료수",m:"Ундаа"},
-      {k:"치마",m:"Юбка"},{k:"
+      {k:"치마",m:"Юбка"},{k:"전자상가",m:"Цахилгаан барааны дэлгүүр"},
+        {k:"카메라",m:"Камера"},{k:"필통",m:"Үзэгний сав"},
+      {k:"티셔츠",m:"Цамц"}
+    ]
+  },
+  {
+    id:8,title:"Хичээл 8",sub:"음식・식당",xp:15,game:"typer",color:"#E17055",icon:"🍜",
+    w:[
+      {k:"갈비",m:"Хавирга"},{k:"비빔밥",m:"Пибимбаб"},
+      {k:"갈비탕",m:"Хавиргатай шөл"},{k:"삼겹살",m:"Самгёбсаль"},
+      {k:"국",m:"Шөл"},{k:"삼계탕",m:"Тахианы битүү шөл"},
+      {k:"국수",m:"Гоймон"},{k:"고릴타이 셜",m:"Гурилтай шөл"},
+      {k:"김치",m:"Кимчи"},{k:"보오즈",m:"Бууз"},
+      {k:"김치찌개",m:"Кимчитэй өтгөн шөл"},{k:"비투 셜",m:"Битүү шөл"},
+      {k:"냉면",m:"Хүйтэн гоймон"},{k:"수테차",m:"Сүүтэй цай"},
+      {k:"된장찌개",m:"Шар буурцагны шөл"},{k:"아르츠",m:"Аарц"},
+      {k:"떡",m:"Дог"},{k:"허르헉",m:"Хорхог"},
+      {k:"라면",m:"Бэлэн гоймон"},{k:"호쇼르",m:"Хуушуур"},
+      {k:"밥",m:"Агшаасан будаа"},{k:"홍차",m:"Хар цай"},
+      {k:"볶음밥",m:"Будаатай хуурга"},{k:"음식",m:"Хоол"},
+      {k:"불고기",m:"Булгуги"},{k:"인삼차",m:"Хүн орхоодойн цай"},
+      {k:"빵",m:"Талх"},{k:"잔",m:"Хундага"},
+      {k:"소금",m:"Давс"},{k:"잠깐만",m:"Тур"},
+      {k:"아침",m:"Өглөөний хоол"},{k:"저녁",m:"Оройн хоол"},
+      {k:"앉다",m:"Суух"},{k:"점심",m:"Өдрийн хоол"},
+      {k:"어서",m:"Тавтай морил"},{k:"조금",m:"Жоохон/хэмжээ/"},
+      {k:"여기",m:"Энэ"},{k:"좀",m:"Жоохон/сул үг/"},
+      {k:"여러 가지",m:"Олон төрлийн"},{k:"주다",m:"Өгөх"},
+      {k:"우유",m:"Сүү"},{k:"주말",m:"Амралтын өдөр"},
+      {k:"고추",m:"Чинжүү"},{k:"물",m:"Ус"},
+      {k:"그래서",m:"Тиймээс"},{k:"반찬",m:"Хачир"},
+      {k:"기다리다",m:"Хүлээх"},{k:"병",m:"Лонх"},
+      {k:"남편",m:"Нөхөр"},{k:"보통",m:"Ихэвчлэн"},
+      {k:"녹차",m:"Ногоон цай"},{k:"차",m:"Цай"},
+      {k:"더",m:"Илүү"},{k:"채소",m:"Хүнсний ногоо"},
+      {k:"드시다",m:"Зооглох"},{k:"커피",m:"Кофе"},
+      {k:"레몬",m:"Лемон"},{k:"케이크",m:"Торт"},
+      {k:"만들다",m:"Хийх, бүтээх"},{k:"콜라",m:"Колла"},
+      {k:"맛있게",m:"Амтархан"},{k:"특히",m:"Ялангуя"},
+      {k:"자주",m:"Байнга"},{k:"항상",m:"Дандаа"}
+    ]
+  },
+  {
+    id:9,title:"Хичээл 9",sub:"장소・집",xp:15,game:"typer",color:"#00B894",icon:"🏠",
+    w:[
+      {k:"건너편/맞은편",m:"Эрсэг тал, цаад тал"},{k:"경찰서",m:"Цагдаагийн газар"},
+      {k:"남",m:"Өмнө зүг"},{k:"공부방",m:"Номын өрөө"},
+      {k:"동",m:"Зүүн зүг"},{k:"기숙사",m:"Дотуур байр"},
+      {k:"뒤",m:"Ард, хойно"},{k:"단독주택",m:"Хувийн сууц"},
+      {k:"똑바로/쪽",m:"Чигээрээ явах"},{k:"박물관",m:"Музей"},
+      {k:"밖",m:"Гадаа"},{k:"버스 정류장",m:"Автобусны буудал"},
+      {k:"북",m:"Хойд зүг"},{k:"베란다",m:"Тагт"},
+      {k:"사이",m:"Дунд, хооронд"},{k:"복잡하다",m:"Төвөгтэй, замбраагүй"},
+      {k:"서",m:"Баруун зүг"},{k:"부엌",m:"Гал тогоо"},
+      {k:"아래",m:"Доор"},{k:"불편하다",m:"Эвгүй, таагүй"},
+      {k:"안",m:"Дотор"},{k:"사무실",m:"Албан өрөө"},
+      {k:"앞",m:"Урд"},{k:"사용하다",m:"Хэрэглэх, ашиглах"},
+      {k:"양쪽",m:"2 тал"},{k:"세탁소",m:"Угаалгын газар"},
+      {k:"옆",m:"Хажууд"},{k:"세탁실",m:"Угаалгын өрөө"},
+      {k:"오른쪽",m:"Баруун тал"},{k:"소파",m:"Буйдан"},
+      {k:"왼쪽",m:"Зүүн тал"},{k:"슈퍼마켓",m:"Супермаркет"},
+      {k:"위",m:"Дээр"},{k:"식탁",m:"Хоолны ширээ"},
+      {k:"가구",m:"Тавилга"},{k:"신발장",m:"Гутлын тавиур"},
+      {k:"거실",m:"Том өрөө"},{k:"아파트",m:"Орон сууц"},
+      {k:"현관",m:"Гонх, үүд"},{k:"혼자",m:"Ганцаараа"},
+      {k:"안방",m:"Өрөө"},{k:"책장",m:"Номын шүүгээ"},
+      {k:"오피스텔",m:"Офистель"},{k:"친절하다",m:"Эелдэг, дотно"},
+      {k:"옷장",m:"Хувцасны шүүгээ"},{k:"침대",m:"Ор"},
+      {k:"우체국",m:"Шуудан"},{k:"침실",m:"Унтлагын өрөө"},
+      {k:"자취 집",m:"Хөлсний байр"},{k:"탁자",m:"Ширээ"},
+      {k:"정원",m:"Цэцэрлэг"},{k:"편리하다",m:"Таатай, тохиромжтой"},
+      {k:"주택",m:"Нийтийн сууц"},{k:"편하다",m:"Таатай, амгалан"},
+      {k:"지내다",m:"Өнгөрүүлэх"},{k:"하숙비",m:"Түрээсийн төлбөр"},
+      {k:"지하",m:"Газар доор"},{k:"하숙집",m:"Хөлсний өрөө"},
+      {k:"지하철역",m:"Метроны буудал"},{k:"화장대",m:"Гоо сайхны тавиур"}
+    ]
+  }
+];
+
+// ── STATE ──────────────────────────────────────────────
+var ST = {done:[], xp:0};
+try {
+  ST.done = JSON.parse(localStorage.getItem('kd') || '[]');
+  ST.xp   = parseInt(localStorage.getItem('kx') || '0') || 0;
+} catch(e) {}
+
+var CL = null;   // current lesson
+var MS = {};     // match session stats
+
+function save() {
+  try {
+    localStorage.setItem('kd', JSON.stringify(ST.done));
+    localStorage.setItem('kx', String(ST.xp));
+  } catch(e) {}
+}
+
+// ── UTILS ──────────────────────────────────────────────
+function shuf(a) {
+  var b = a.slice();
+  for (var i = b.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var t = b[i]; b[i] = b[j]; b[j] = t;
+  }
+  return b;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showPanel(id) {
+  document.querySelectorAll('.gpanel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+// ── HOME ───────────────────────────────────────────────
+function renderHome() {
+  var tot = LESSONS.length;
+  var dn  = ST.done.length;
+  document.getElementById('pbf').style.width = (dn/tot*100) + '%';
+  document.getElementById('pbt').innerText   = dn + ' / ' + tot + ' хичээл дууссан';
+
+  var lc = document.getElementById('lc');
+  lc.innerHTML = '';
+
+  LESSONS.forEach(function(les) {
+    var done = ST.done.indexOf(les.id) >= 0;
+
+    // card wrapper
+    var card = document.createElement('div');
+    card.className = 'les-card';
+    card.style.background = 'linear-gradient(135deg,' + les.color + ',' + les.color + 'aa)';
+
+    // top row
+    var top = document.createElement('div');
+    top.className = 'lc-top';
+    top.innerHTML =
+      '<div class="lc-icon">' + les.icon + '</div>' +
+      '<div class="lc-info">' +
+        '<div class="lc-num">' + les.sub + '</div>' +
+        '<div class="lc-title">' + les.title + '</div>' +
+        '<div class="lc-count">' + les.w.length + ' үг</div>' +
+      '</div>' +
+      '<div class="lc-status">' + (done ? '✅' : '🔓') + '</div>';
+
+    // button
+    var btn = document.createElement('button');
+    btn.className = 'lc-btn';
+    btn.innerText = done ? 'Дахин хийх' : 'Эхлэх';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      startLesson(les);
+    });
+
+    card.appendChild(top);
+    card.appendChild(btn);
+    card.addEventListener('click', function() { startLesson(les); });
+    lc.appendChild(card);
+  });
+}
+
+function goHome() { renderHome(); showScreen('home'); }
+
+// ── START LESSON ────────────────────────────────────────
+function startLesson(les) {
+  CL = les;
+  MS = {correct:0, total:0, wrong:0, start:Date.now()};
+
+  document.getElementById('ltitle').innerText = les.title;
+  document.getElementById('lptext').innerText = les.sub;
+  document.getElementById('xpb').innerText    = '⭐ ' + les.xp + ' XP';
+  document.getElementById('lpfill').style.width = '0%';
+
+  showScreen('lesson');
+
+  if (les.game === 'match') {
+    showPanel('mg');
+    startMatch();
+  } else if (les.game === 'typer') {
+    showPanel('tpg');
+    startTyper();
+  } else {
+    showPanel('mcg');
+    startChoice();
+  }
+}
+
+// ── MATCH GAME ─────────────────────────────────────────
+var MG = {};
+
+function startMatch() {
+  MG = {seen:[], selK:null, selM:null, done:0, total:0, wrong:0, pairs:[]};
+  loadMatchRound();
+}
+
+function loadMatchRound() {
+  var remaining = CL.w.filter(function(p) { return MG.seen.indexOf(p.k) < 0; });
+  if (remaining.length === 0) { finishLesson(); return; }
+
+  var pool = shuf(remaining).slice(0, 5);
+  MG.pairs = pool;
+  MG.done  = 0;
+  MG.total = pool.length;
+  MS.total += pool.length;
+
+  document.getElementById('ri').innerText = '0 / ' + pool.length + ' тохирсон';
+  document.getElementById('lpfill').style.width = '0%';
+
+  var ks  = shuf(pool.map(function(p){ return p.k; }));
+  var ms  = shuf(pool.map(function(p){ return p.m; }));
+  var ck  = document.getElementById('ck'); ck.innerHTML = '';
+  var cm  = document.getElementById('cm'); cm.innerHTML = '';
+
+  ks.forEach(function(k) {
+    var d = document.createElement('div');
+    d.className   = 'mcard';
+    d.innerText   = k;
+    d.dataset.val = k;
+    d.dataset.typ = 'k';
+    d.addEventListener('click', function(){ clickMatch(d); });
+    ck.appendChild(d);
+  });
+  ms.forEach(function(m) {
+    var d = document.createElement('div');
+    d.className   = 'mcard';
+    d.innerText   = m;
+    d.dataset.val = m;
+    d.dataset.typ = 'm';
+    d.addEventListener('click', function(){ clickMatch(d); });
+    cm.appendChild(d);
+  });
+}
+
+function clickMatch(el) {
+  if (el.classList.contains('ok') || el.classList.contains('err')) return;
+  var typ = el.dataset.typ;
+
+  if (typ === 'k') {
+    if (MG.selK) MG.selK.classList.remove('sel');
+    MG.selK = el;
+    el.classList.add('sel');
+  } else {
+    if (MG.selM) MG.selM.classList.remove('sel');
+    MG.selM = el;
+    el.classList.add('sel');
+  }
+
+  if (!MG.selK || !MG.selM) return;
+
+  var kv = MG.selK.dataset.val;
+  var mv = MG.selM.dataset.val;
+  var ok = MG.pairs.some(function(p){ return p.k === kv && p.m === mv; });
+
+  if (ok) {
+    MG.selK.classList.remove('sel'); MG.selK.classList.add('ok');
+    MG.selM.classList.remove('sel'); MG.selM.classList.add('ok');
+    MG.done++; MS.correct++;
+    MG.selK = null; MG.selM = null;
+
+    document.getElementById('ri').innerText = MG.done + ' / ' + MG.total + ' тохирсон';
+    document.getElementById('lpfill').style.width = (MG.done / MG.total * 100) + '%';
+
+    if (MG.done === MG.total) {
+      MG.pairs.forEach(function(p){ MG.seen.push(p.k); });
+      setTimeout(function() { loadMatchRound(); }, 600);
+    }
+  } else {
+    MG.wrong++; MS.wrong++;
+    var sk = MG.selK, sm = MG.selM;
+    sk.classList.add('err'); sm.classList.add('err');
+    MG.selK = null; MG.selM = null;
+    setTimeout(function() {
+      sk.classList.remove('sel','err');
+      sm.classList.remove('sel','err');
+    }, 500);
+  }
+}
+
+// ── CHOICE GAME ────────────────────────────────────────
+var CG = {};
+
+function startChoice() {
+  CG = {items: shuf(CL.w).slice(0, 20), idx: 0, wrong: 0};
+  MS.total = CG.items.length;
+  showChoice();
+}
+
+function showChoice() {
+  if (CG.idx >= CG.items.length) { MS.wrong = CG.wrong; finishLesson(); return; }
+  var item = CG.items[CG.idx];
+  var tot  = CG.items.length;
+
+  document.getElementById('mc-prog').innerText = (CG.idx+1) + ' / ' + tot;
+  document.getElementById('lpfill').style.width = (CG.idx / tot * 100) + '%';
+  document.getElementById('mc-q').innerText    = item.k;
+  document.getElementById('mc-hint').innerText = 'Монгол утгыг сонгоорой';
+
+  var others = CG.items.filter(function(x){ return x !== item; });
+  var wrongs = shuf(others).slice(0, 3);
+  var opts   = shuf([item].concat(wrongs));
+
+  var oc = document.getElementById('mc-opts');
+  oc.innerHTML = '';
+  opts.forEach(function(o) {
+    var btn = document.createElement('div');
+    btn.className = 'mc-opt';
+    btn.innerText = o.m;
+    btn.addEventListener('click', function() {
+      if (btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+      if (o === item) {
+        btn.classList.add('correct');
+        MS.correct++;
+        setTimeout(function() { CG.idx++; showChoice(); }, 650);
+      } else {
+        btn.classList.add('wrong');
+        CG.wrong++; MS.wrong++;
+        // dim all others
+        oc.querySelectorAll('.mc-opt').forEach(function(b){ if(b!==btn) b.classList.add('dim'); });
+        setTimeout(function() { CG.idx++; showChoice(); }, 1000);
+      }
+    });
+    oc.appendChild(btn);
+  });
+}
+
+// ── TYPER GAME ─────────────────────────────────────────
+var TP = {};
+
+function startTyper() {
+  TP = {items: shuf(CL.w).slice(0, 15), idx: 0, wrong: 0};
+  MS.total = TP.items.length;
+  showTyper();
+}
+
+function showTyper() {
+  if (TP.idx >= TP.items.length) { MS.wrong = TP.wrong; finishLesson(); return; }
+  var item = TP.items[TP.idx];
+  var chars = Array.from(item.k);
+
+  document.getElementById('tp-prog').innerText = (TP.idx+1) + ' / ' + TP.items.length;
+  document.getElementById('lpfill').style.width = (TP.idx / TP.items.length * 100) + '%';
+  document.getElementById('tp-mn').innerText   = item.m;
+  document.getElementById('tp-disp').innerText = '';
+
+  var typed = [];
+  var btns  = document.getElementById('tp-btns');
+  btns.innerHTML = '';
+
+  // shuffle by index to handle duplicate chars
+  var idxs = chars.map(function(_,i){ return i; });
+  shuf(idxs).forEach(function(origIdx) {
+    var ch = chars[origIdx];
+    var b  = document.createElement('button');
+    b.className   = 'tp-btn';
+    b.innerText   = ch;
+    b.dataset.idx = origIdx;
+    b.addEventListener('click', function() {
+      if (b.disabled) return;
+      var expected = chars[typed.length];
+      if (ch === expected) {
+        typed.push(ch);
+        b.disabled = true;
+        b.style.borderColor = 'var(--green)';
+        b.style.color       = 'var(--green)';
+        document.getElementById('tp-disp').innerText = typed.join('');
+        if (typed.length === chars.length) {
+          MS.correct++;
+          setTimeout(function() { TP.idx++; showTyper(); }, 600);
+        }
+      } else {
+        TP.wrong++; MS.wrong++;
+        b.style.borderColor = 'var(--red)';
+        b.style.color       = 'var(--red)';
+        setTimeout(function() {
+          b.style.borderColor = 'var(--border)';
+          b.style.color       = 'var(--text)';
+        }, 400);
+      }
+    });
+    btns.appendChild(b);
+  });
+}
+
+// ── FINISH ─────────────────────────────────────────────
+function finishLesson() {
+  if (ST.done.indexOf(CL.id) < 0) {
+    ST.done.push(CL.id);
+    ST.xp += CL.xp;
+    save();
+  }
+  var sec = Math.round((Date.now() - MS.start) / 1000);
+  document.getElementById('csub').innerText = CL.title + ' дууслаа!';
+  document.getElementById('sxp').innerText  = '+' + CL.xp;
+  document.getElementById('smt').innerText  = MS.correct + '/' + MS.total;
+  document.getElementById('stm').innerText  = sec + 'с';
+  confetti();
+  showScreen('complete');
+}
+
+function nextLesson() {
+  var idx = LESSONS.findIndex(function(l){ return l.id === CL.id; });
+  if (idx >= 0 && idx < LESSONS.length-1) { startLesson(LESSONS[idx+1]); }
+  else { goHome(); }
+}
+
+function confetti() {
+  var fw = document.getElementById('cfw'); fw.innerHTML = '';
+  var colors = ['#FF6B6B','#4ECDC4','#FFCC00','#A29BFE','#FD79A8','#00B894'];
+  for (var i = 0; i < 60; i++) {
+    var p = document.createElement('div');
+    p.className = 'cfp';
+    var sz = 6 + Math.random()*8;
+    p.style.cssText = 'left:'+Math.random()*100+'%;width:'+sz+'px;height:'+sz+'px;background:'
+      +colors[Math.floor(Math.random()*colors.length)]+';animation-delay:'+Math.random()*1.5+'s';
+    fw.appendChild(p);
+  }
+}
+
+// ── BUTTON EVENTS ──────────────────────────────────────
+document.getElementById('backBtn').addEventListener('click', function(){ goHome(); });
+document.getElementById('nextBtn').addEventListener('click', function(){ nextLesson(); });
+document.getElementById('homeBtn2').addEventListener('click', function(){ goHome(); });
+
+// ── INIT ───────────────────────────────────────────────
+renderHome();
+</script>
+</body>
+</html>
