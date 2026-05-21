@@ -1,4 +1,4 @@
-const CACHE = 'korean-app-v7';
+const CACHE = 'korean-app-v9';
 const FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
